@@ -1,5 +1,5 @@
 public abstract interface Controller {  
-  public abstract boolean create(String name, String type);
-  public abstract boolean remove(String name);
-  public abstract Object get(String name);
+  public abstract boolean create(String id, String type);//create data files for new object
+  public abstract boolean remove(String id);//remove data files from repository for specified id
+  public abstract Object get(String id);//retrieve data for specified id from repository and return as Object
 }
