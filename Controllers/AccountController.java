@@ -1,5 +1,13 @@
 public class AccountController implements Controller {
-  public static void main(String[] args) {
-    System.out.println("Devin is super AWESOME!!!");
+  public boolean create(Object obj) {
+    Account acct = (Account) obj;
+  }
+  
+  public boolean remove(String id) {
+    
+  }
+  
+  public Object get(String id) {
+    
   }
 }
