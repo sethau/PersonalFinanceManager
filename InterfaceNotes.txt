@@ -1,0 +1,3 @@
+Where does investment money come from? Include 'Transfer Funds To Portfolio' option that transfers funds from a chacking or savings account into the portfolio?
+Include Projection features (just in Accounts?? Or also in Portfolio?) And Recurring Transaction option.
+Add exception cases for invalid inputs (invalid options, transaction/trade amounts that would cross a boundary, etc.)
