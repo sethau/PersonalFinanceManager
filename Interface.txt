@@ -1,255 +1,255 @@
-Welcome To The PFM!
+					Welcome To The PFM!
 
 1) New User
 2) Existing User
 
 Please Select An Option: >>option
-	*************************************Select 'New User'
-	Please Enter A Username: >>username
-	Please Enter A Password: >>password
-	*************************************EXCEPTION: Username Already Taken
-	This Username Already Exists!
-	Please Choose A Different Username.
-	Please Enter A Username: >>username
-	Please Enter A Password: >>password
-	*************************************Select 'Existing User'
-	Please Log In.
-	Username: >>username
-	Password: >>password
-	*************************************EXCEPTION: Incorrect Login
-	Incorrect Information!
-	Please Try Again.
-	Username: >>username
-	Password: >>password
-		*************************************Correct Login
-		Welcome, #name!
-		- Net Worth: #amtHeld + #stockHoldings + #availableFunds - #amtOwed
+*************************************Select 'New User'
+Please Enter A Username: >>username
+Please Enter A Password: >>password
+*************************************EXCEPTION: Username Already Taken
+				This Username Already Exists!
+Please Choose A Different Username.
+Please Enter A Username: >>username
+Please Enter A Password: >>password
+*************************************Select 'Existing User'
+					Please Log In.
+Username: >>username
+Password: >>password
+*************************************EXCEPTION: Incorrect Login
+				Incorrect Information!
+Please Try Again.
+Username: >>username
+Password: >>password
+*************************************Correct Login
+					Welcome, #name!
+				- Net Worth: #amtHeld + #stockHoldings + #availableFunds - #amtOwed
 
-		1) View Accounts
-		2) View Portfolio
-		3) Delete Profile
-		4) Log Out
+1) View Accounts
+2) View Portfolio
+3) Delete Profile
+4) Log Out
 
-		Please Select An Option: >>option
-		*************************************Select 'View Accounts'
-		#name's Accounts
-		- Amount Held: #amtHeld
-		- Amount Owed: #amtOwed
+Please Select An Option: >>option
+*************************************Select 'View Accounts'
+					#name's Accounts
+				- Amount Held: #amtHeld
+				- Amount Owed: #amtOwed
 
-		1) Back
-		2) Create Account
-		3) Close Account
-		3) View #Account1
-		4) View #Account2
-		etc.
+1) Back
+2) Create Account
+3) Close Account
+3) View #Account1
+4) View #Account2
+etc.
 
-		Please Select An Option: >>option
-			*************************************Select 'Create Account'
-			1) Back
-			2) Checking Account
-			3) Savings Account
-			3) Credit Account
-			4) Loan Account
+Please Select An Option: >>option
+*************************************Select 'Create Account'
+1) Back
+2) Checking Account
+3) Savings Account
+3) Credit Account
+4) Loan Account
 
-			Please Select An Account Type: >>option
-			
-			Account Name: >>accountName
-			Starting Balance: >>startingBalance
-			(if !CheckingAccount)Monthly Interest Rate: >>interestRate
-			(if CreditAccount)Credit Limit: >>creditLimit
-			
-			Account Created!
-			*************************************Select 'Close Account'
-			1) Back
-			2) #Account1
-			3) #Account2
-			etc.
+Please Select An Account Type: >>option
 
-			Select Account To Be Closed: >>option
-			Are you sure you want to close this account?
-			The account will not be deleted, but it will become inactive.
-			(y/n): >>option
-			
-			Account Closed!
-			*************************************Select 'View Account'
-			#accountName
-			Type: #accountType
-			Current Balance: #balance
-			(if !CheckingAccount)Interest Rate: #interestRate
-			(if CreditAccount)Credit Limit: #creditLimit
-			
-			1) Back
-			2) View Transactions
-			3) New Transaction
-			
-			Please Select An Option: >>option
-				*************************************Select 'View Transactions'
-				1) Back
-				2) All Transactions
-				3) Select Transactions By Date
-				4) Select Transactions By Vendor
-				5) Select Transactions By Category
-				
-				Please Select An Option: >>option
-					*************************************Select 'All Transactions'
-					Transactions in #accountName
-					
-					1) #date1
-					$#amt1 to #vendor1
-					Category: #cat1
-					
-					2) etc.
-					...
-					
-					1) Back
-					2) Delete Transaction
-					
-					Please Select An Option: >>option
-						*************************************Select 'Delete Transaction'
-						Select Transaction To Be Deleted: >>option
-						
-						Are you absolutely sure you want to delete transaction #option?
-						The specified Transaction data will be permanently erased.
-						(y/n): >>option
-						
-						Transaction Deleted!
-					*************************************Select 'Select Transactions By Date'
-					Start Date
-					Year: >>y1
-					Month: >>m1
-					Day: >>d1
-					
-					End Date
-					Year: >>y2
-					Month: >>m2
-					Day: >>d2
-					
-					Transactions in #accountName
-					From #d1/#m1/#y1 to #d2/#m2/#y2
-				
-					1) #date1
-					$#amt1 to #vendor1
-					Category: #cat1
-					
-					2) etc.
-					...
-					
-					1) (to 'View Transactions' Page)Back
-					2) Delete Transaction
-					
-					Please Select An Option: >>option
-						*************************************Select 'Delete Transaction'
-						Select Transaction To Be Deleted: >>option
-						
-						Are you absolutely sure you want to delete transaction #option?
-						The specified Transaction data will be permanently erased.
-						(y/n): >>option
-						
-						Transaction Deleted!
-					*************************************Select 'Select Transactions By Vendor'
-					Vendor: >>vendor
-					
-					Transactions in #accountName
-					To #vendor
-				
-					1) #date1
-					$#amt1 to #vendor
-					Category: #cat1
-					
-					2) etc.
-					...
-					
-					1) (to 'View Transactions' Page)Back
-					2) Delete Transaction
-					
-					Please Select An Option: >>option
-						*************************************Select 'Delete Transaction'
-						Select Transaction To Be Deleted: >>option
-						
-						Are you absolutely sure you want to delete transaction #option?
-						The specified Transaction data will be permanently erased.
-						(y/n): >>option
-						
-						Transaction Deleted!
-					*************************************Select 'Select Transactions By Category'
-					Category: >>category
-					
-					Transactions in #accountName
+Account Name: >>accountName
+Starting Balance: >>startingBalance
+(if !CheckingAccount)Monthly Interest Rate: >>interestRate
+(if CreditAccount)Credit Limit: >>creditLimit
+
+					Account Created!
+*************************************Select 'Close Account'
+1) Back
+2) #Account1
+3) #Account2
+etc.
+
+Select Account To Be Closed: >>option
+Are you sure you want to close this account?
+The account will not be deleted, but it will become inactive.
+(y/n): >>option
+
+					Account Closed!
+*************************************Select 'View Account'
+#accountName
+Type: #accountType
+Current Balance: #balance
+(if !CheckingAccount)Interest Rate: #interestRate
+(if CreditAccount)Credit Limit: #creditLimit
+
+1) Back
+2) View Transactions
+3) New Transaction
+
+Please Select An Option: >>option
+*************************************Select 'View Transactions'
+1) Back
+2) All Transactions
+3) Select Transactions By Date
+4) Select Transactions By Vendor
+5) Select Transactions By Category
+
+Please Select An Option: >>option
+*************************************Select 'All Transactions'
+				Transactions in #accountName
+
+1) #date1
+$#amt1 to #vendor1
+Category: #cat1
+
+2) etc.
+...
+
+1) Back
+2) Delete Transaction
+
+Please Select An Option: >>option
+*************************************Select 'Delete Transaction'
+Select Transaction To Be Deleted: >>option
+
+Are you absolutely sure you want to delete transaction #option?
+The specified Transaction data will be permanently erased.
+(y/n): >>option
+
+					Transaction Deleted!
+*************************************Select 'Select Transactions By Date'
+Start Date
+Year: >>y1
+Month: >>m1
+Day: >>d1
+
+End Date
+Year: >>y2
+Month: >>m2
+Day: >>d2
+
+				Transactions in #accountName
+			From #d1/#m1/#y1 to #d2/#m2/#y2
+
+1) #date1
+$#amt1 to #vendor1
+Category: #cat1
+
+2) etc.
+...
+
+1) (to 'View Transactions' Page)Back
+2) Delete Transaction
+
+Please Select An Option: >>option
+*************************************Select 'Delete Transaction'
+Select Transaction To Be Deleted: >>option
+
+Are you absolutely sure you want to delete transaction #option?
+The specified Transaction data will be permanently erased.
+(y/n): >>option
+
+					Transaction Deleted!
+*************************************Select 'Select Transactions By Vendor'
+Vendor: >>vendor
+
+				Transactions in #accountName
+						To #vendor
+
+1) #date1
+$#amt1 to #vendor
+Category: #cat1
+
+2) etc.
+...
+
+1) (to 'View Transactions' Page)Back
+2) Delete Transaction
+
+Please Select An Option: >>option
+*************************************Select 'Delete Transaction'
+Select Transaction To Be Deleted: >>option
+
+Are you absolutely sure you want to delete transaction #option?
+The specified Transaction data will be permanently erased.
+(y/n): >>option
+
+					Transaction Deleted!
+*************************************Select 'Select Transactions By Category'
+Category: >>category
+
+			Transactions in #accountName
 					In #category
-				
-					1) #date1
-					$#amt1 to #vendor1
-					Category: #category
-					
-					2) etc.
-					...
-					
-					1) (to 'View Transactions' Page)Back
-					2) Delete Transaction
-					
-					Please Select An Option: >>option
-						*************************************Select 'Delete Transaction'
-						Select Transaction To Be Deleted: >>option
-						
-						Are you absolutely sure you want to delete transaction #option?
-						The specified Transaction data will be permanently erased.
-						(y/n): >>option
-						
-						Transaction Deleted!
-				*************************************Select 'New Transaction'
-				(text will depend on #accountType)Amount: >>amount
-				Vendor: >>vendor
-				Category: >>category
-		*************************************Select 'View Portfolio'
-		#name's Portfolio
-		- Available Funds For Investment: #availableFunds
-		- Net Profit: #netProfit
-		- Stock Holdings: #stockHoldings
 
-		1) Back
-		4) View Holdings
-		2) View Trade History
-		3) Buy
-		4) Sell
+1) #date1
+$#amt1 to #vendor1
+Category: #category
 
-		Please Select An Option: >>option
-			*************************************Select 'View Holdings'
-			1) #company1
-			Shares: #numShares1 at #price1
-			Total: #numShares1 * #price1
-			
-			2) etc.
-			...
-			
-			1) Back
-			
-			Please Select An Option: >>option
-			*************************************Select 'View Trade History'
-			1) #date1
-			(if buy)Bought(if sell)Sold #numShares1 in #company1 at #price1
-			
-			2) etc.
-			...
-			
-			1) Back
-			
-			Please Select An Option: >>option
-			*************************************Select 'Buy' or 'Sell'
-			Available Funds For Investment: #availableFunds
-			
-			Company: >>company
-			(Get share price from Google Finance)
-			Current Share Price: #price
-			Current Holdings of #company: #numShares1
-			
-			Number Of Shares To Be (if buy)Bought(if sell)Sold: >>num
-			This will (if buy)Cost(if sell)Yield $#num * #price, confirm (y/n): >>option
-			
-			(adjust #availableFunds)
-			Trade Successful			
-		*************************************Select 'Delete Profile'
-		Are you absolutely sure you want to delete #name's profile?
-		All account and portfolio data will be permanently erased.
-		(y/n): >>option
-		
-		Profile Deleted!
+2) etc.
+...
+
+1) (to 'View Transactions' Page)Back
+2) Delete Transaction
+
+Please Select An Option: >>option
+*************************************Select 'Delete Transaction'
+Select Transaction To Be Deleted: >>option
+
+Are you absolutely sure you want to delete transaction #option?
+The specified Transaction data will be permanently erased.
+(y/n): >>option
+
+					Transaction Deleted!
+*************************************Select 'New Transaction'
+(text will depend on #accountType)Amount: >>amount
+Vendor: >>vendor
+Category: >>category
+*************************************Select 'View Portfolio'
+#name's Portfolio
+- Available Funds For Investment: #availableFunds
+- Net Profit: #netProfit
+- Stock Holdings: #stockHoldings
+
+1) Back
+4) View Holdings
+2) View Trade History
+3) Buy
+4) Sell
+
+Please Select An Option: >>option
+*************************************Select 'View Holdings'
+1) #company1
+Shares: #numShares1 at #price1
+Total: #numShares1 * #price1
+
+2) etc.
+...
+
+1) Back
+
+Please Select An Option: >>option
+*************************************Select 'View Trade History'
+1) #date1
+(if buy)Bought(if sell)Sold #numShares1 in #company1 at #price1
+
+2) etc.
+...
+
+1) Back
+
+Please Select An Option: >>option
+*************************************Select 'Buy' or 'Sell'
+Available Funds For Investment: #availableFunds
+
+Company: >>company
+(Get share price from Google Finance)
+Current Share Price: #price
+Current Holdings of #company: #numShares1
+
+Number Of Shares To Be (if buy)Bought(if sell)Sold: >>num
+This will (if buy)Cost(if sell)Yield $#num * #price, confirm (y/n): >>option
+
+(adjust #availableFunds)
+					Trade Successful!			
+*************************************Select 'Delete Profile'
+Are you absolutely sure you want to delete #name's profile?
+All account and portfolio data will be permanently erased.
+(y/n): >>option
+
+					Profile Deleted!
