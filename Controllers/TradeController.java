@@ -1,17 +1,34 @@
 package Controllers;
 
-public class TradeController implements Controller {
-	public boolean create(Object obj) {
+import java.util.ArrayList;
+
+import Domain.Trade;
+
+public class TradeController extends Controller {
+	
+	public TradeController() {}
+	
+	public static boolean create(Object obj) {
 		Trade trade = (Trade) obj;
 		
 		return true;
 	}
 
-	public boolean remove(String id) {
+	public static boolean remove(String id) {
+		
+		
 		return true;
 	}
 
-	public Object get(String id) {
+	public static Object get(String id) {
+		
+		
+		return null;
+	}
+
+	public static ArrayList<Object> getAll(Object obj) {
+		
+		
 		return null;
 	}
 }

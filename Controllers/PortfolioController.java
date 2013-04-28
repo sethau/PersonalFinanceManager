@@ -1,17 +1,34 @@
 package Controllers;
 
-public class PortfolioController implements Controller {
-	public boolean create(Object obj) {
-		Portfolio port = (Portfolio) obj;
+import java.util.ArrayList;
+
+import Domain.Portfolio;
+
+public class PortfolioController extends Controller {
+	
+	public PortfolioController() {}
+	
+	public static boolean create(Object obj) {
+		Portfolio portfolio = (Portfolio) obj;
 		
 		return true;
 	}
 
-	public boolean remove(String id) {
+	public static boolean remove(String id) {
+		
+		
 		return true;
 	}
 
-	public Object get(String id) {
+	public static Object get(String id) {
+		
+		
+		return null;
+	}
+	
+	public static ArrayList<Object> getAll(Object obj) {
+		
+		
 		return null;
 	}
 }
