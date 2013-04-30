@@ -4,12 +4,14 @@ import java.util.ArrayList;
 public class Profile {
 	
 	String username, password;
-	ArrayList<String> accounts;
+	ArrayList<Account> accounts;
+	Portfolio portfolio;
 	
 	public Profile(String username, String password) {
 		this.username = username;
 		this.password = password;
 		updateAccounts();
+		updatePortfolio();
 	}
 	
 	public String getUsername() {
@@ -20,11 +22,21 @@ public class Profile {
 		return password;
 	}
 	
-	public ArrayList<String> getAccounts() {
+	public ArrayList<Account> getAccounts() {
 		return accounts;
 	}
 	
+	public Portfolio getPortfolio() {
+		return portfolio;
+	}
+	
 	public boolean updateAccounts() {
+		
+		
+		return true;
+	}
+	
+	public boolean updatePortfolio() {
 		
 		
 		return true;
@@ -36,7 +48,7 @@ public class Profile {
 		return true;
 	}
 	
-	public boolean deleteAccounte(String name) {
+	public boolean deleteAccount(String name) {
 		
 		
 		return true;

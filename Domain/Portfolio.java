@@ -7,11 +7,13 @@ public class Portfolio {
 	private String profile;
 	private double balance;
 	private ArrayList<Trade> trades;
+	private ArrayList<Stock> stocks;
 	
 	public Portfolio(String profile, double balance) {
 		this.profile = profile;
 		this.balance = balance;
 		updateTrades();
+		updateStocks();
 	}
 	
 	public Portfolio(String profile) {
@@ -30,7 +32,17 @@ public class Portfolio {
 		return trades;
 	}
 	
+	public ArrayList<Stock> getStocks() {
+		return stocks;
+	}
+	
 	public boolean updateTrades() {
+		
+		
+		return true;
+	}
+	
+	public boolean updateStocks() {
 		
 		
 		return true;

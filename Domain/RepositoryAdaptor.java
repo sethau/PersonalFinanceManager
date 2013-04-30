@@ -3,6 +3,8 @@ package Domain;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -119,7 +121,8 @@ public class RepositoryAdaptor {
 		});
 		ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 		for (String transDir : transDirs) {
-			Long timestamp = Long.parseLong(transDir);
+			
+			Long timestamp = Long.parseLong(transDir.replaceAll(".txt", ""));
 			Transaction trans = getTransaction(account, timestamp);
 			transactions.add(trans);
 		}
@@ -170,7 +173,7 @@ public class RepositoryAdaptor {
 		});
 		ArrayList<Trade> trades = new ArrayList<Trade>();
 		for (String tradeDir : tradeDirs) {
-			Long timestamp = Long.parseLong(tradeDir);
+			Long timestamp = Long.parseLong(tradeDir.replaceAll(".txt", ""));
 			Trade trade = getTrade(portfolio, timestamp);
 			trades.add(trade);
 		}
@@ -205,9 +208,133 @@ public class RepositoryAdaptor {
 		});
 		ArrayList<Stock> stocks = new ArrayList<Stock>();
 		for (String stockDir : stockDirs) {
-			Stock stock = getStock(portfolio, stockDir);
+			Stock stock = getStock(portfolio, stockDir.replaceAll(".txt", ""));
 			stocks.add(stock);
 		}
 		return stocks;
+	}
+	
+	public static boolean saveProfile(Profile profile) throws IOException {
+		File profFile = new File(DATA_PATH + "/" + profile.getUsername() + "/password.txt");
+		File profDir = new File(DATA_PATH + "/" + profile.getUsername());
+		if (!profDir.exists()) {
+			profDir.mkdir();
+			File portDir = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio");
+			portDir.mkdir();
+			File stockDir = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/Stocks");
+			stockDir.mkdir();
+			File tradeDir = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/Trades");
+			tradeDir.mkdir();
+			File portFile = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/"
+					+ "portfolioInfo.txt");
+			portFile.createNewFile();
+			profFile.createNewFile();
+		}
+		PrintWriter out = new PrintWriter(profFile);
+		out.println(profile.getPassword());
+		out.close();
+		
+		savePortfolio(profile, profile.getPortfolio());
+		
+		ArrayList<Account> accounts = profile.getAccounts();
+		for (Account account : accounts) {
+			saveAccount(profile, account);
+		}
+		
+		return true;
+	}
+	
+	public static boolean savePortfolio(Profile profile, Portfolio portfolio) throws IOException {
+		File portFile = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/"
+			+ "portfolioInfo.txt");
+		PrintWriter out = new PrintWriter(portFile);
+		out.println(portfolio.getBalance());
+		out.close();
+		
+		ArrayList<Stock> stocks = portfolio.getStocks();
+		for (Stock stock : stocks) {
+			saveStock(profile, portfolio, stock);
+		}
+		
+		ArrayList<Trade> trades = portfolio.getTrades();
+		for (Trade trade : trades) {
+			saveTrade(profile, portfolio, trade);
+		}
+		
+		return true;
+	}
+	
+	public static boolean saveAccount(Profile profile, Account account) throws IOException {
+		File acctFile = new File(DATA_PATH + "/" + profile.getUsername() + "/" + account.getName()
+			+ "/accountInfo.txt");
+		File acctDir = new File(DATA_PATH + "/" + profile.getUsername() + "/" + account.getName());
+		if (!acctDir.exists()) {
+			acctDir.mkdir();
+			File transDir = new File(DATA_PATH + "/" + profile.getUsername() + "/"
+				+ account.getName() + "/Transactions");
+			transDir.mkdir();
+			acctFile.createNewFile();
+		}
+		PrintWriter out = new PrintWriter(acctFile);
+		out.println(account.getBalance());
+		out.println(account.getInterest());
+		int type;
+		if (account instanceof LoanAccount) {
+			type = Account.LOAN;
+		} else if (account instanceof CreditAccount) {
+			type = Account.CREDIT;
+		} else if (account instanceof CheckingAccount) {
+			type = Account.CHECKING;
+		} else {
+			type = Account.SAVINGS;
+		}
+		out.println(type);
+		out.close();
+		
+		ArrayList<Transaction> transactions = account.getTransactions();
+		for (Transaction transaction : transactions) {
+			saveTransaction(profile, account, transaction);
+		}
+		
+		return true;
+	}
+	
+	public static boolean saveStock(Profile profile, Portfolio portfolio, Stock stock) throws IOException {
+		File stockFile = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/Stocks/"
+			+ stock.getCompany() + ".txt");
+		if (!stockFile.exists()) {
+			stockFile.createNewFile();
+		}
+		PrintWriter out = new PrintWriter(stockFile);
+		out.println(stock.getNumShares());
+		out.println(stock.getPerShareValue());
+		out.close();
+		return true;
+	}
+	
+	public static boolean saveTrade(Profile profile, Portfolio portfolio, Trade trade) throws IOException {
+		File tradeFile = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/Trades/"
+			+ trade.getDate() + ".txt");
+		if (!tradeFile.exists()) {
+			tradeFile.createNewFile();
+		}
+		PrintWriter out = new PrintWriter(tradeFile);
+		out.println(trade.getNumStocks());
+		out.println(trade.getCompany());
+		out.close();
+		return true;
+	}
+	
+	public static boolean saveTransaction(Profile profile, Account account, Transaction transaction) throws IOException {
+		File transFile = new File(DATA_PATH + "/" + profile.getUsername() + "/" + account.getName()
+			+ "/Transactions/" + transaction.getDate() + ".txt");
+		if (!transFile.exists()) {
+			transFile.createNewFile();
+		}
+		PrintWriter out = new PrintWriter(transFile);
+		out.println(transaction.getAmount());
+		out.println(transaction.getVendor());
+		out.close();
+		return true;
 	}
 }
