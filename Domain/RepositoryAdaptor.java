@@ -233,18 +233,49 @@ public class RepositoryAdaptor {
 		PrintWriter out = new PrintWriter(profFile);
 		out.println(profile.getPassword());
 		out.close();
+		return true;
+	}
+	
+	public static boolean saveEntireProfile(Profile profile) throws IOException {
+		File profFile = new File(DATA_PATH + "/" + profile.getUsername() + "/password.txt");
+		File profDir = new File(DATA_PATH + "/" + profile.getUsername());
+		if (!profDir.exists()) {
+			profDir.mkdir();
+			File portDir = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio");
+			portDir.mkdir();
+			File stockDir = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/Stocks");
+			stockDir.mkdir();
+			File tradeDir = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/Trades");
+			tradeDir.mkdir();
+			File portFile = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/"
+					+ "portfolioInfo.txt");
+			portFile.createNewFile();
+			profFile.createNewFile();
+		}
+		PrintWriter out = new PrintWriter(profFile);
+		out.println(profile.getPassword());
+		out.close();
 		
-		savePortfolio(profile, profile.getPortfolio());
+		saveEntirePortfolio(profile, profile.getPortfolio());
 		
 		ArrayList<Account> accounts = profile.getAccounts();
 		for (Account account : accounts) {
-			saveAccount(profile, account);
+			saveEntireAccount(profile, account);
 		}
 		
 		return true;
 	}
 	
-	public static boolean savePortfolio(Profile profile, Portfolio portfolio) throws IOException {
+	public static boolean savePortfolio(Profile profile, Portfolio portfolio) throws FileNotFoundException {
+		File portFile = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/"
+			+ "portfolioInfo.txt");
+		PrintWriter out = new PrintWriter(portFile);
+		out.println(portfolio.getBalance());
+		out.close();
+		return true;
+	}
+	
+	public static boolean saveEntirePortfolio(Profile profile, Portfolio portfolio) throws IOException {
 		File portFile = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/"
 			+ "portfolioInfo.txt");
 		PrintWriter out = new PrintWriter(portFile);
@@ -265,6 +296,35 @@ public class RepositoryAdaptor {
 	}
 	
 	public static boolean saveAccount(Profile profile, Account account) throws IOException {
+		File acctFile = new File(DATA_PATH + "/" + profile.getUsername() + "/" + account.getName()
+			+ "/accountInfo.txt");
+		File acctDir = new File(DATA_PATH + "/" + profile.getUsername() + "/" + account.getName());
+		if (!acctDir.exists()) {
+			acctDir.mkdir();
+			File transDir = new File(DATA_PATH + "/" + profile.getUsername() + "/"
+				+ account.getName() + "/Transactions");
+			transDir.mkdir();
+			acctFile.createNewFile();
+		}
+		PrintWriter out = new PrintWriter(acctFile);
+		out.println(account.getBalance());
+		out.println(account.getInterest());
+		int type;
+		if (account instanceof LoanAccount) {
+			type = Account.LOAN;
+		} else if (account instanceof CreditAccount) {
+			type = Account.CREDIT;
+		} else if (account instanceof CheckingAccount) {
+			type = Account.CHECKING;
+		} else {
+			type = Account.SAVINGS;
+		}
+		out.println(type);
+		out.close();
+		return true;
+	}
+	
+	public static boolean saveEntireAccount(Profile profile, Account account) throws IOException {
 		File acctFile = new File(DATA_PATH + "/" + profile.getUsername() + "/" + account.getName()
 			+ "/accountInfo.txt");
 		File acctDir = new File(DATA_PATH + "/" + profile.getUsername() + "/" + account.getName());
