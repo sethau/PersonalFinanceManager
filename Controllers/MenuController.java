@@ -64,7 +64,7 @@
                } 
                else if (result.equals("Delete Profile")) {
                	//Delete Profile And Log Out
-				  if (ProfileController.createForm(result, profile)) {
+				  if (ProfileController.createForm(result, profile) == null) {
 					result = "Log Out";
 				  }
                   //Do Not Delete Profile, Bact To Main Menu
