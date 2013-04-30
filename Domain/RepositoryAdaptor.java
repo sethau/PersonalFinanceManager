@@ -284,12 +284,12 @@ public class RepositoryAdaptor {
 		
 		ArrayList<Stock> stocks = portfolio.getStocks();
 		for (Stock stock : stocks) {
-			saveStock(profile, portfolio, stock);
+			saveStock(profile, stock);
 		}
 		
 		ArrayList<Trade> trades = portfolio.getTrades();
 		for (Trade trade : trades) {
-			saveTrade(profile, portfolio, trade);
+			saveTrade(profile, trade);
 		}
 		
 		return true;
@@ -359,7 +359,7 @@ public class RepositoryAdaptor {
 		return true;
 	}
 	
-	public static boolean saveStock(Profile profile, Portfolio portfolio, Stock stock) throws IOException {
+	public static boolean saveStock(Profile profile, Stock stock) throws IOException {
 		File stockFile = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/Stocks/"
 			+ stock.getCompany() + ".txt");
 		if (!stockFile.exists()) {
@@ -372,7 +372,7 @@ public class RepositoryAdaptor {
 		return true;
 	}
 	
-	public static boolean saveTrade(Profile profile, Portfolio portfolio, Trade trade) throws IOException {
+	public static boolean saveTrade(Profile profile, Trade trade) throws IOException {
 		File tradeFile = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/Trades/"
 			+ trade.getDate() + ".txt");
 		if (!tradeFile.exists()) {
@@ -395,6 +395,70 @@ public class RepositoryAdaptor {
 		out.println(transaction.getAmount());
 		out.println(transaction.getVendor());
 		out.close();
+		return true;
+	}
+	
+	public static boolean deleteProfile(Profile profile) throws IOException {
+		File dir = new File(DATA_PATH + "/" + profile.getUsername());
+		if (dir.exists()) {
+			delete(dir);
+		}
+		return true;
+	}
+	
+	public static boolean deleteAccount(Profile profile, Account account) throws IOException {
+		File dir = new File(DATA_PATH + "/" + profile.getUsername() + "/" + account.getName());
+		if (dir.exists()) {
+			delete(dir);
+		}
+		return true;
+	}
+	
+	public static boolean deleteStock(Profile profile, Stock stock) throws IOException {
+		File file = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/Stocks/"
+			+ stock.getCompany() + ".txt");
+		if (file.exists()) {
+			delete(file);
+		}
+		return true;
+	}
+	
+	public static boolean deleteTrade(Profile profile, Trade trade) throws IOException {
+		File file = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/Trades/"
+			+ trade.getDate() + ".txt");
+		if (file.exists()) {
+			delete(file);
+		}
+		return true;
+	}
+	
+	public static boolean deleteTransaction(Profile profile, Account account, Transaction transaction) throws IOException {
+		File file = new File(DATA_PATH + "/" + profile.getUsername() + "/" + account.getName()
+			+ "/Transactions/" + transaction.getDate() + ".txt");
+		if (file.exists()) {
+			delete(file);
+		}
+		return true;
+	}
+
+	private static boolean delete(File file) throws IOException {
+		if(file.isDirectory()) {
+			if (file.list().length == 0) {
+				file.delete();
+			} else {
+				String files[] = file.list();
+				
+				for (String temp : files) {
+					File fileDelete = new File(file, temp);
+					delete(fileDelete);
+				}
+				if (file.list().length == 0) {
+					file.delete();
+				}
+			}
+		} else {
+			file.delete();
+		}
 		return true;
 	}
 }
