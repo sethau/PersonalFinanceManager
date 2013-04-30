@@ -156,9 +156,11 @@ public class RepositoryAdaptor {
 			Scanner scan = new Scanner(tradeInfo);
 			int numStocks;
 			String company;
+			double price;
 			numStocks = Integer.parseInt(scan.nextLine());
 			company = scan.nextLine();
-			return new Trade(numStocks, company, timestamp);
+			price = Double.parseDouble(scan.nextLine());
+			return new Trade(numStocks, company, price, timestamp);
 		}
 		return null;
 	}
@@ -190,10 +192,8 @@ public class RepositoryAdaptor {
 			}
 			Scanner scan = new Scanner(stockInfo);
 			int numShares;
-			double perShareValue;
 			numShares = Integer.parseInt(scan.nextLine());
-			perShareValue = Double.parseDouble(scan.nextLine());
-			return new Stock(company, numShares, perShareValue);
+			return new Stock(company, numShares);
 		}
 		return null;
 	}
@@ -256,9 +256,9 @@ public class RepositoryAdaptor {
 		out.println(profile.getPassword());
 		out.close();
 		
-		saveEntirePortfolio(profile, profile.getPortfolio());
+		saveEntirePortfolio(profile, getPortfolio(profile));
 		
-		ArrayList<Account> accounts = profile.getAccounts();
+		ArrayList<Account> accounts = getAccounts(profile);
 		for (Account account : accounts) {
 			saveEntireAccount(profile, account);
 		}
@@ -282,12 +282,12 @@ public class RepositoryAdaptor {
 		out.println(portfolio.getBalance());
 		out.close();
 		
-		ArrayList<Stock> stocks = portfolio.getStocks();
+		ArrayList<Stock> stocks = getStocks(profile);
 		for (Stock stock : stocks) {
 			saveStock(profile, stock);
 		}
 		
-		ArrayList<Trade> trades = portfolio.getTrades();
+		ArrayList<Trade> trades = getTrades(profile);
 		for (Trade trade : trades) {
 			saveTrade(profile, trade);
 		}
@@ -351,7 +351,7 @@ public class RepositoryAdaptor {
 		out.println(type);
 		out.close();
 		
-		ArrayList<Transaction> transactions = account.getTransactions();
+		ArrayList<Transaction> transactions = getTransactions(account);
 		for (Transaction transaction : transactions) {
 			saveTransaction(profile, account, transaction);
 		}
@@ -367,7 +367,6 @@ public class RepositoryAdaptor {
 		}
 		PrintWriter out = new PrintWriter(stockFile);
 		out.println(stock.getNumShares());
-		out.println(stock.getPerShareValue());
 		out.close();
 		return true;
 	}
@@ -381,7 +380,16 @@ public class RepositoryAdaptor {
 		PrintWriter out = new PrintWriter(tradeFile);
 		out.println(trade.getNumStocks());
 		out.println(trade.getCompany());
+		out.println(trade.getPrice());
 		out.close();
+		Stock stock = getStock(profile, trade.getCompany());
+		if (stock == null) {
+			stock = new Stock(trade.getCompany(), trade.getNumStocks());
+		} else {
+			stock.setNumShares(stock.getNumShares() + trade.getNumStocks());
+		}
+		saveStock(profile, stock);
+		
 		return true;
 	}
 	
@@ -427,6 +435,10 @@ public class RepositoryAdaptor {
 		File file = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/Trades/"
 			+ trade.getDate() + ".txt");
 		if (file.exists()) {
+			Stock stock = getStock(profile, trade.getCompany());
+			stock.setNumShares(stock.getNumShares() - trade.getNumStocks());
+			saveStock(profile, stock);
+			
 			delete(file);
 		}
 		return true;
