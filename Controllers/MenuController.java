@@ -10,22 +10,22 @@
       }
       
       private static void createForm() {
-         Loginform lf = new LoginForm();
+		int selection;
          Profile profile;
-         MenuForm mf = new MenuForm();
          String result;
          result = "Log Out";
          while (result.equals("Log Out")) {
          	//Log In
-            profile = ProfileController.createLoginForm(lf.welcome());
+            profile = ProfileController.createLoginForm(Loginform.welcome());
             result = "Main Menu";
             while (result.equals("Main Menu")) {
             	//Main Menu
-               result = mf.displayMenu(profile);
+               result = MenuForm.displayMenu(profile);
                if (result.equals("View Accounts")) {
                   while (result.equals("View Accounts")) {
                   	//View Accounts
-                     result = ProfileController.viewAccounts(profile);
+                     selection = AccountController.viewAccounts(profile);
+					 if (selection == 1) result = "Back";
                      if (result.equals("Back")) {
                      	//Back To Main Menu
                         result = "Main Menu";
@@ -34,7 +34,14 @@
                      	//Create Account
                      	//Close Account
                      	//View Account
-                        result = AccountController.createForm(result, profile);
+						if (selection == 2) {
+							result = "Close Account";
+							result = AccountController.createForm(result, profile, null);
+						}
+						else {
+							result = "View Account";
+							result = AccountController.createForm(result, profile, selection);
+						}
                      }
                   }
                } 
