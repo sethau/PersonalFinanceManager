@@ -18,7 +18,7 @@ public class RepositoryAdaptor {
 		File dir = new File(DATA_PATH + "/" + username);
 		if (dir.exists()) {
 			File profInfo = new File(DATA_PATH + "/" + username + "/password.txt");
-			if (profInfo.exists()) {
+			if (!profInfo.exists()) {
 				return null;
 			}
 			Scanner scan = new Scanner(profInfo);
@@ -50,7 +50,7 @@ public class RepositoryAdaptor {
 		if (dir.exists()) {
 			File acctInfo = new File(DATA_PATH + "/" + profile.getUsername() + "/" + name
 				+ "/accountInfo.txt");
-			if (acctInfo.exists()) {
+			if (!acctInfo.exists()) {
 				return null;
 			}
 			Scanner scan = new Scanner(acctInfo);
@@ -95,8 +95,8 @@ public class RepositoryAdaptor {
 		File dir = new File(DATA_PATH + "/" + account.getProfile() + "/" + account.getName());
 		if (dir.exists()) {
 			File transInfo = new File(DATA_PATH + "/" + account.getProfile() + "/"
-				+ account.getName() + "/transactions/" + timestamp + ".txt");
-			if (transInfo.exists()) {
+				+ account.getName() + "/Transactions/" + timestamp + ".txt");
+			if (!transInfo.exists()) {
 				return null;
 			}
 			Scanner scan = new Scanner(transInfo);
@@ -109,30 +109,106 @@ public class RepositoryAdaptor {
 		return null;
 	}
 	
-	public static ArrayList<Transaction> getTransactions(Account account) {
+	public static ArrayList<Transaction> getTransactions(Account account) throws FileNotFoundException {
 		File dir = new File(DATA_PATH + "/" + account.getProfile() + "/" + account.getName()
-				+ "/transactions");
+				+ "/Transactions");
 		String[] transDirs = dir.list(new FilenameFilter() {
 			@Override
 			public boolean accept(File current, String name) {
-				return new File(current, name).isDirectory();
+				return new File(current, name).isFile();
 			}
 		});
+		ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+		for (String transDir : transDirs) {
+			Long timestamp = Long.parseLong(transDir);
+			Transaction trans = getTransaction(account, timestamp);
+			transactions.add(trans);
+		}
+		return transactions;
 	}
 	
-	public static Trade getTrade(Portfolio portfolio, long timestamp) {
-		
+	public static Portfolio getPortfolio(Profile profile) throws FileNotFoundException {
+		File dir = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio");
+		if (dir.exists()) {
+			File portInfo = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio"
+				+ "/portfolioInfo.txt");
+			if (!portInfo.exists()) {
+				return null;
+			}
+			Scanner scan = new Scanner(portInfo);
+			double balance;
+			balance = Double.parseDouble(scan.nextLine());
+			return new Portfolio(profile.getUsername(), balance);
+		}
+		return null;
 	}
 	
-	public static ArrayList<Trade> getTrades(Portfolio portfolio) {
-		
+	public static Trade getTrade(Portfolio portfolio, long timestamp) throws FileNotFoundException {
+		File dir = new File(DATA_PATH + "/" + portfolio.getProfile() + "/Portfolio/Trades");
+		if (dir.exists()) {
+			File tradeInfo = new File(DATA_PATH + "/" + portfolio.getProfile() + "/Portfolio"
+				+ "/Trades/" + timestamp + ".txt");
+			if (!tradeInfo.exists()) {
+				return null;
+			}
+			Scanner scan = new Scanner(tradeInfo);
+			int numStocks;
+			String company;
+			numStocks = Integer.parseInt(scan.nextLine());
+			company = scan.nextLine();
+			return new Trade(numStocks, company, timestamp);
+		}
+		return null;
 	}
 	
-	public static Stock getStock(Portfolio portfolio, String company) {
-		
+	public static ArrayList<Trade> getTrades(Portfolio portfolio) throws FileNotFoundException {
+		File dir = new File(DATA_PATH + "/" + portfolio.getProfile() + "/Portfolio/Trades");
+		String[] tradeDirs = dir.list(new FilenameFilter() {
+			@Override
+			public boolean accept(File current, String name) {
+				return new File(current, name).isFile();
+			}
+		});
+		ArrayList<Trade> trades = new ArrayList<Trade>();
+		for (String tradeDir : tradeDirs) {
+			Long timestamp = Long.parseLong(tradeDir);
+			Trade trade = getTrade(portfolio, timestamp);
+			trades.add(trade);
+		}
+		return trades;
 	}
 	
-	public static ArrayList<Stock> getStocks(Portfolio portfolio) {
-		
+	public static Stock getStock(Portfolio portfolio, String company) throws FileNotFoundException {
+		File dir = new File(DATA_PATH + "/" + portfolio.getProfile() + "/Portfolio/Stocks");
+		if (dir.exists()) {
+			File stockInfo = new File(DATA_PATH + "/" + portfolio.getProfile() + "/Portfolio"
+				+ "/Stocks/" + company + ".txt");
+			if (!stockInfo.exists()) {
+				return null;
+			}
+			Scanner scan = new Scanner(stockInfo);
+			int numShares;
+			double perShareValue;
+			numShares = Integer.parseInt(scan.nextLine());
+			perShareValue = Double.parseDouble(scan.nextLine());
+			return new Stock(company, numShares, perShareValue);
+		}
+		return null;
+	}
+	
+	public static ArrayList<Stock> getStocks(Portfolio portfolio) throws FileNotFoundException {
+		File dir = new File(DATA_PATH + "/" + portfolio.getProfile() + "/Portfolio/Stocks");
+		String[] stockDirs = dir.list(new FilenameFilter() {
+			@Override
+			public boolean accept(File current, String name) {
+				return new File(current, name).isFile();
+			}
+		});
+		ArrayList<Stock> stocks = new ArrayList<Stock>();
+		for (String stockDir : stockDirs) {
+			Stock stock = getStock(portfolio, stockDir);
+			stocks.add(stock);
+		}
+		return stocks;
 	}
 }
