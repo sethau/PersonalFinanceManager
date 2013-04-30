@@ -1,12 +1,10 @@
 package Domain;
-import java.util.ArrayList;
 
 public abstract class Account {
 	
 	private String name, profile;
 	private double balance, interest;
 	private int status;
-	private ArrayList<Transaction> transactions;
 	public static final int OPEN = 0, CLOSED = 1;
 	public static final int LOAN = 0, CREDIT = 1, CHECKING = 2, SAVINGS = 3;
 	
@@ -16,7 +14,6 @@ public abstract class Account {
 		this.interest = interest;
 		this.balance = balance;
 		status = OPEN;
-		updateTransactions();
 	}
 	
 	public Account(String profile, String name, double balance) {
@@ -52,18 +49,8 @@ public abstract class Account {
 		return status;
 	}
 	
-	public ArrayList<Transaction> getTransactions() {
-		return transactions;
-	}
-	
 	public boolean changeBalance(double amount) {
 		balance += amount;
-		return true;
-	}
-	
-	public boolean updateTransactions() {
-		
-		
 		return true;
 	}
 	

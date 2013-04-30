@@ -4,12 +4,10 @@ public class Stock {
 
 	private String company;
 	private int numShares;
-	private double perShareValue;
 	
-	public Stock(String company, int numShares, double perShareValue) {
+	public Stock(String company, int numShares) {
 		this.company = company;
 		this.numShares = numShares;
-		this.perShareValue = perShareValue;
 	}
 	
 	public String getCompany() {
@@ -20,7 +18,8 @@ public class Stock {
 		return numShares;
 	}
 	
-	public double getPerShareValue() {
-		return perShareValue;
+	public boolean setNumShares(int numShares) {
+		this.numShares = numShares;
+		return true;
 	}
 }
