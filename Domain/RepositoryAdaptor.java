@@ -17,7 +17,10 @@ public class RepositoryAdaptor {
 	public static Profile getProfile(String username) throws FileNotFoundException {
 		File dir = new File(DATA_PATH + "/" + username);
 		if (dir.exists()) {
-			File profInfo = new File(DATA_PATH + "/" + username + "/" + "password.txt");
+			File profInfo = new File(DATA_PATH + "/" + username + "/password.txt");
+			if (profInfo.exists()) {
+				return null;
+			}
 			Scanner scan = new Scanner(profInfo);
 			String password = scan.nextLine();
 			return new Profile(username, password);
@@ -45,7 +48,11 @@ public class RepositoryAdaptor {
 	public static Account getAccount(Profile profile, String name) throws FileNotFoundException {
 		File dir = new File(DATA_PATH + "/" + profile.getUsername() + "/" + name);
 		if (dir.exists()) {
-			File acctInfo = new File(DATA_PATH + "/" + profile.getUsername() + "/" + name + "/" + "accountInfo");
+			File acctInfo = new File(DATA_PATH + "/" + profile.getUsername() + "/" + name
+				+ "/accountInfo.txt");
+			if (acctInfo.exists()) {
+				return null;
+			}
 			Scanner scan = new Scanner(acctInfo);
 			double balance, interest;
 			int type;
@@ -84,12 +91,33 @@ public class RepositoryAdaptor {
 		return accounts;
 	}
 	
-	public static Transaction getTransaction(Account account, long timestamp) {
-		
+	public static Transaction getTransaction(Account account, long timestamp) throws FileNotFoundException {
+		File dir = new File(DATA_PATH + "/" + account.getProfile() + "/" + account.getName());
+		if (dir.exists()) {
+			File transInfo = new File(DATA_PATH + "/" + account.getProfile() + "/"
+				+ account.getName() + "/transactions/" + timestamp + ".txt");
+			if (transInfo.exists()) {
+				return null;
+			}
+			Scanner scan = new Scanner(transInfo);
+			double amount;
+			String vendor;
+			amount = Double.parseDouble(scan.nextLine());
+			vendor = scan.nextLine();
+			return new Transaction(amount, vendor, timestamp);
+		}
+		return null;
 	}
 	
 	public static ArrayList<Transaction> getTransactions(Account account) {
-		
+		File dir = new File(DATA_PATH + "/" + account.getProfile() + "/" + account.getName()
+				+ "/transactions");
+		String[] transDirs = dir.list(new FilenameFilter() {
+			@Override
+			public boolean accept(File current, String name) {
+				return new File(current, name).isDirectory();
+			}
+		});
 	}
 	
 	public static Trade getTrade(Portfolio portfolio, long timestamp) {
