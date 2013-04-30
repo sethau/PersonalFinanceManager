@@ -49,6 +49,11 @@ public abstract class Account {
 		return status;
 	}
 	
+	public boolean setInterest(double interest) {
+		this.interest = interest;
+		return true;
+	}
+	
 	public boolean changeBalance(double amount) {
 		balance += amount;
 		return true;
