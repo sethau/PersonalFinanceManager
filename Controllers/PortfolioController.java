@@ -11,8 +11,6 @@ import Domain.Stock;
 
 public class PortfolioController {
 	
-	public PortfolioController() {}
-	
 	public static boolean save(Profile profile, Portfolio portfolio) throws FileNotFoundException {
 		return RepositoryAdaptor.savePortfolio(profile, portfolio);
 	}
@@ -32,5 +30,13 @@ public class PortfolioController {
 			stockValue += stock.getNumShares() * RealTimeStockQuote.price(stock.getCompany());
 		}
 		return stockValue;
+	}
+	
+	public static String createForm(String menuOption, Profile, profile) {
+		//View Portfolio
+		//View Holdings
+		//View Trade History
+		//Buy
+		//Sell
 	}
 }

@@ -55,21 +55,23 @@ public class ProfileController {
 		return accountValue + portfolioValue;
 	}
 	
-	public static Object createForm(String id) {
-		
-		
-		return null;
-	}
-	
-	public static String viewAccounts(Profile profile) {
-		
-		
-		return null;
-	}
-	
-	public static String viewPortfolio(Profile profile) {
-		
-		
-		return null;
+	public static Profile createForm(String menuOption, Profile profile) {
+		if (menuOption.equals("Delete Profile") {
+			if (ProfileForm.confirmDelete(profile)) {
+				remove(profile);
+				return null;
+			}
+			else {
+				return profile;
+			}
+		}
+		else if (menuOption.equals("New User") {
+			profile = ProfileForm.newUser();
+			save(profile);
+			return profile;
+		}
+		else if (menuOption.equals("Existing User") {
+			return ProfileForm.existingUser();
+		}
 	}
 }

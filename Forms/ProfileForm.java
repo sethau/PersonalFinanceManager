@@ -24,8 +24,6 @@
                System.out.print("\r\n\t\t\t\tThis Username Already Exists!\r"); 
             }
          }
-         
-         ProfileController.save(profile);
       	
          return profile;
       }
@@ -58,14 +56,13 @@
          return profile;
       }
       
-      public boolean confirmDelete(String id) {
+      public boolean confirmDelete(Profile profile) {
          Scanner input = new Scanner(System.in);
       
-         System.out.print("\nAre you absolutely sure you want to delete " + id + "\'s profile?\r"
+         System.out.print("\nAre you absolutely sure you want to delete " + profile.getName() + "\'s profile?\r"
                					+ "\nAll account and portfolio data will be permanently erased.\r"
                					+ "\n(y/n): ");
          if ((char) input.nextInt() == 'y') {
-            ProfileController.remove(id);
             System.out.print("\n\t\t\t\t\tProfile Deleted!\r");
             return true;
          }

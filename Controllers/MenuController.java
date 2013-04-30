@@ -16,7 +16,7 @@
          result = "Log Out";
          while (result.equals("Log Out")) {
          	//Log In
-            profile = ProfileController.createLoginForm(Loginform.welcome());
+            profile = ProfileController.createForm(LoginForm.welcome(), null);
             result = "Main Menu";
             while (result.equals("Main Menu")) {
             	//Main Menu
@@ -48,7 +48,7 @@
                else if (result.equals("View Portfolio")) {
                   while (result.equals("View Portfolio")) {
                   	//View Portfolio
-                     result = ProfileController.viewPortfolio(profile);
+                     result = PortfolioController.createForm(result, profile);
                      if (result.equals("Back")) {
                      	//Back To Main Menu
                         result = "Main Menu";
@@ -64,9 +64,9 @@
                } 
                else if (result.equals("Delete Profile")) {
                	//Delete Profile And Log Out
-                  if (ProfileController.createDeleteForm(profile.getName())) {
-                     result = "Log Out";
-                  }
+				  if (ProfileController.createForm(result, profile)) {
+					result = "Log Out";
+				  }
                   //Do Not Delete Profile, Bact To Main Menu
                   else {
                      result = "Main Menu";

@@ -15,9 +15,7 @@
          Scanner input = new Scanner(System.in);
       	
          System.out.print("\n" + profile.getName() + "\'s Portfolio\r"
-            					+ "\n- Available Funds For Investment: "/* + portfolio.getAvailableFunds()*/ + "\r"
-            					+ "\n- Net Profit: "/* + portfolio.getNetProfit()*/ + "\r"
-            					+ "\n- Stock Holdings: "/* + portfolio.getStockHoldings*/);
+            					+ "\n- Stock Holdings: "/* + PortfolioController.getStockValue(profile)*/);
          while (!valid) {
             System.out.print("\r\n\r"
                					+ "\n1) Back\r"
