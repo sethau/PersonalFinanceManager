@@ -25,7 +25,6 @@ public class RepositoryAdaptor {
 			String password = scan.nextLine();
 			return new Profile(username, password);
 		}
-		
 		return null;
 	}
 	
@@ -61,13 +60,13 @@ public class RepositoryAdaptor {
 			type = Integer.parseInt(scan.nextLine());
 			switch (type) {
 			case Account.LOAN:
-				return new LoanAccount(profile.getUsername(), name, interest, balance);
+				return new LoanAccount(profile.getUsername(), name, balance, interest);
 			case Account.CREDIT:
-				return new CreditAccount(profile.getUsername(), name, interest, balance);
+				return new CreditAccount(profile.getUsername(), name, balance, interest);
 			case Account.CHECKING:
-				return new CheckingAccount(profile.getUsername(), name, interest, balance);
+				return new CheckingAccount(profile.getUsername(), name, balance, interest);
 			case Account.SAVINGS:
-				return new SavingsAccount(profile.getUsername(), name, interest, balance);
+				return new SavingsAccount(profile.getUsername(), name, balance, interest);
 			default:
 				return null;
 			}

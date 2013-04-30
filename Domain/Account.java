@@ -10,7 +10,7 @@ public abstract class Account {
 	public static final int OPEN = 0, CLOSED = 1;
 	public static final int LOAN = 0, CREDIT = 1, CHECKING = 2, SAVINGS = 3;
 	
-	public Account(String profile, String name, double interest, double balance) {
+	public Account(String profile, String name, double balance, double interest) {
 		this.profile = profile;
 		this.name = name;
 		this.interest = interest;
