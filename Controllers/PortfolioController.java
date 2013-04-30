@@ -1,34 +1,25 @@
 package Controllers;
 
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import Domain.Portfolio;
+import Domain.Profile;
+import Domain.RepositoryAdaptor;
 
-public class PortfolioController extends Controller {
+public class PortfolioController {
 	
 	public PortfolioController() {}
 	
-	public static boolean create(Object obj) {
-		Portfolio portfolio = (Portfolio) obj;
-		
-		return true;
-	}
-
-	public static boolean remove(String id) {
-		
-		
-		return true;
-	}
-
-	public static Object get(String id) {
-		
-		
-		return null;
+	public static boolean save(Profile profile, Portfolio portfolio) throws FileNotFoundException {
+		return RepositoryAdaptor.savePortfolio(profile, portfolio);
 	}
 	
-	public static ArrayList<Object> getAll(Object obj) {
-		
-		
-		return null;
+	public static boolean saveEntire(Profile profile, Portfolio portfolio) throws IOException {
+		return RepositoryAdaptor.saveEntirePortfolio(profile, portfolio);
+	}
+
+	public static Portfolio get(Profile profile) throws FileNotFoundException {
+		return RepositoryAdaptor.getPortfolio(profile);
 	}
 }

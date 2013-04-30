@@ -1,34 +1,31 @@
 package Controllers;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import Domain.Account;
+import Domain.Profile;
+import Domain.RepositoryAdaptor;
 import Domain.Transaction;
 
 public class TransactionController extends Controller {
 	
 	public TransactionController() {}
 	
-	public static boolean create(Object obj) {
-		Transaction transaction = (Transaction) obj;
-		
-		return true;
+	public static boolean save(Profile profile, Account account, Transaction transaction) throws IOException {
+		return RepositoryAdaptor.saveTransaction(profile, account, transaction);
 	}
 
-	public static boolean remove(String id) {
-		
-		
-		return true;
+	public static boolean remove(Profile profile, Account account, Transaction transaction) throws IOException {
+		return RepositoryAdaptor.deleteTransaction(profile, account, transaction);
 	}
 
-	public static Object get(String id) {
-		
-		
-		return null;
+	public static Transaction get(Account account, long timestamp) throws FileNotFoundException {
+		return RepositoryAdaptor.getTransaction(account, timestamp);
 	}
 	
-	public static ArrayList<Object> getAll(Object obj) {
-		
-		
-		return null;
+	public static ArrayList<Transaction> getAll(Account account) throws FileNotFoundException {
+		return RepositoryAdaptor.getTransactions(account);
 	}
 }

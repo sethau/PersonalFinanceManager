@@ -145,10 +145,10 @@ public class RepositoryAdaptor {
 		return null;
 	}
 	
-	public static Trade getTrade(Portfolio portfolio, long timestamp) throws FileNotFoundException {
-		File dir = new File(DATA_PATH + "/" + portfolio.getProfile() + "/Portfolio/Trades");
+	public static Trade getTrade(Profile profile, long timestamp) throws FileNotFoundException {
+		File dir = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/Trades");
 		if (dir.exists()) {
-			File tradeInfo = new File(DATA_PATH + "/" + portfolio.getProfile() + "/Portfolio"
+			File tradeInfo = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio"
 				+ "/Trades/" + timestamp + ".txt");
 			if (!tradeInfo.exists()) {
 				return null;
@@ -163,8 +163,8 @@ public class RepositoryAdaptor {
 		return null;
 	}
 	
-	public static ArrayList<Trade> getTrades(Portfolio portfolio) throws FileNotFoundException {
-		File dir = new File(DATA_PATH + "/" + portfolio.getProfile() + "/Portfolio/Trades");
+	public static ArrayList<Trade> getTrades(Profile profile) throws FileNotFoundException {
+		File dir = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/Trades");
 		String[] tradeDirs = dir.list(new FilenameFilter() {
 			@Override
 			public boolean accept(File current, String name) {
@@ -174,16 +174,16 @@ public class RepositoryAdaptor {
 		ArrayList<Trade> trades = new ArrayList<Trade>();
 		for (String tradeDir : tradeDirs) {
 			Long timestamp = Long.parseLong(tradeDir.replaceAll(".txt", ""));
-			Trade trade = getTrade(portfolio, timestamp);
+			Trade trade = getTrade(profile, timestamp);
 			trades.add(trade);
 		}
 		return trades;
 	}
 	
-	public static Stock getStock(Portfolio portfolio, String company) throws FileNotFoundException {
-		File dir = new File(DATA_PATH + "/" + portfolio.getProfile() + "/Portfolio/Stocks");
+	public static Stock getStock(Profile profile, String company) throws FileNotFoundException {
+		File dir = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/Stocks");
 		if (dir.exists()) {
-			File stockInfo = new File(DATA_PATH + "/" + portfolio.getProfile() + "/Portfolio"
+			File stockInfo = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio"
 				+ "/Stocks/" + company + ".txt");
 			if (!stockInfo.exists()) {
 				return null;
@@ -198,8 +198,8 @@ public class RepositoryAdaptor {
 		return null;
 	}
 	
-	public static ArrayList<Stock> getStocks(Portfolio portfolio) throws FileNotFoundException {
-		File dir = new File(DATA_PATH + "/" + portfolio.getProfile() + "/Portfolio/Stocks");
+	public static ArrayList<Stock> getStocks(Profile profile) throws FileNotFoundException {
+		File dir = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/Stocks");
 		String[] stockDirs = dir.list(new FilenameFilter() {
 			@Override
 			public boolean accept(File current, String name) {
@@ -208,7 +208,7 @@ public class RepositoryAdaptor {
 		});
 		ArrayList<Stock> stocks = new ArrayList<Stock>();
 		for (String stockDir : stockDirs) {
-			Stock stock = getStock(portfolio, stockDir.replaceAll(".txt", ""));
+			Stock stock = getStock(profile, stockDir.replaceAll(".txt", ""));
 			stocks.add(stock);
 		}
 		return stocks;
