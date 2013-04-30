@@ -8,7 +8,7 @@
    import java.util.ArrayList;
    
    public class PortfolioForm {
-      public String viewPortfolio(Profile profile) {
+      public static String viewPortfolio(Profile profile) {
          Portfolio portfolio = PortfolioController.get(profile.getName());
          char in;
          boolean valid = false;
@@ -53,7 +53,7 @@
          }
       }
       
-      public void viewHoldings(ArrayList<Stock> stocks) {
+      public static void viewHoldings(ArrayList<Stock> stocks) {
          for (Stock stock : stocks) {
             System.out.print("\r\n " + stock.getCompany() + "\r"
                					+ "\nShares: " + stock.getNumShares() + " at " + stock.getPrice() + "\r"

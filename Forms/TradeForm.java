@@ -4,7 +4,7 @@
    import Controllers.RealTimeStockQuote;
    
    public class TradeForm {
-      public Trade buy() {
+      public static Trade buy() {
          boolean valid = false;
          String in;
          double price;
@@ -39,7 +39,7 @@
          return null;
       }
    	
-      public Trade sell() {
+      public static Trade sell() {
          boolean valid = false;
          String in;
          double price;
@@ -74,7 +74,7 @@
          return null;
       }
    	
-      public void viewTradeHistory(ArrayList<Trade> trades) {
+      public static void viewTradeHistory(ArrayList<Trade> trades) {
          for (Trade trade : trades) {
             System.out.print("\r\n " + trade.getDate() + "\r\n");
             if (trade.getNumShares() < 0) {

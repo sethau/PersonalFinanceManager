@@ -5,7 +5,7 @@
    import java.util.Scanner;
    
    public class MenuForm {	
-      public String displayMenu(Profile profile) {
+      public static String displayMenu(Profile profile) {
          char in;
          boolean valid = false;
          Scanner input = new Scanner(System.in);

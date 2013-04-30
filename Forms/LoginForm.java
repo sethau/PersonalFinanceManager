@@ -5,7 +5,7 @@
    import java.lang.String;
   
    public class LoginForm {
-      public String welcome() {
+      public static String welcome() {
          Scanner input = new Scanner(System.in);
          boolean valid = false;
          char in;

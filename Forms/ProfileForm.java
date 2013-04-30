@@ -6,7 +6,7 @@
    import java.lang.String;
    
    public class ProfileForm {
-      public Profile newUser() {
+      public static Profile newUser() {
          boolean valid = false;
          String in;
          Scanner input = new Scanner(System.in);
@@ -28,7 +28,7 @@
          return profile;
       }
       
-      public Profile existingUser() {
+      public static Profile existingUser() {
          boolean valid = false;
          String in;
          Scanner input = new Scanner(System.in);
@@ -56,7 +56,7 @@
          return profile;
       }
       
-      public boolean confirmDelete(Profile profile) {
+      public static boolean confirmDelete(Profile profile) {
          Scanner input = new Scanner(System.in);
       
          System.out.print("\nAre you absolutely sure you want to delete " + profile.getName() + "\'s profile?\r"

@@ -5,7 +5,7 @@
    import java.util.ArrayList;
    
    public class TransactionForm {
-      public Transaction newTransaction(Account account) {
+      public static Transaction newTransaction(Account account) {
          Scanner input = new Scanner(System.in);
          Transaction transaction = new Transaction(account);
       	
@@ -19,7 +19,7 @@
          return transaction;
       }
    
-      public String viewTransactions() {
+      public static String viewTransactions() {
          boolean valid = false;
          char in;
          Scanner input = new Scanner(System.in);
@@ -27,9 +27,8 @@
          while (!valid) {
             System.out.print("\n1) Back\r"
                					+ "\n2) All Transactions\r"
-               					+ "\n3) Select Transactions By Date\r"
-               					+ "\n4) Select Transactions By Vendor\r"
-               					+ "\n5) Select Transactions By Category\r"
+               					+ "\n3) Select Transactions By Vendor\r"
+               					+ "\n4) Select Transactions By Category\r"
                					+ "\n\r"
                					+ "\nPlease Select An Option: ");
             in = (char) input.nextInt();
@@ -43,14 +42,10 @@
                   valid = true;
                   break;
                case '3':
-                  return "Date";
-                  valid = true;
-                  break;
-               case '4':
                   return "Vendor";
                   valid = true;
                   break;
-               case '5':
+               case '4':
                   return "Category";
                   valid = true;
                   break;
@@ -59,20 +54,20 @@
             }
          }
       }
-      
-      public String getDateRange() {
-      	
+   	
+      public static String getVendor() {
+		Scanner input = new Scanner(System.in);
+      	System.out.print("\r\nVendor: ");
+		return input.nextLine();
       }
    	
-      public String getVendor() {
-      	
+      public static String getCategory() {
+      	Scanner input = new Scanner(System.in);
+      	System.out.print("\r\nCategory: ");
+		return input.nextLine();
       }
    	
-      public String getCategory() {
-      	
-      }
-   	
-      public String displayTransactions(ArrayList<Transaction> transactions) {
+      public static String displayTransactions(ArrayList<Transaction> transactions) {
          int id = 1;
          char in;
          boolean valid = false;
@@ -115,7 +110,7 @@
          }
       }
       
-      public boolean confirmDelete(String id) {
+      public static boolean confirmDelete(String id) {
          Scanner input = new Scanner(System.in);
          
          System.out.print("\n\r"
