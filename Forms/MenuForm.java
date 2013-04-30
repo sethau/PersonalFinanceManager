@@ -6,6 +6,8 @@
    
    public class MenuForm {	
       public String displayMenu(Profile profile) {
+         char in;
+         boolean valid = false;
          Scanner input = new Scanner(System.in);
       	
          System.out.print("\n\t\t\t\t\tWelcome, " + profile.getName() + "!\r"

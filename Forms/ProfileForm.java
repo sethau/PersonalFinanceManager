@@ -58,11 +58,12 @@
          return profile;
       }
       
-   	public boolean confirmDelete(String id) {
-      	System.out.print("\nAre you absolutely sure you want to delete " + id + "\'s profile?\r"
+      public boolean confirmDelete(String id) {
+         Scanner input = new Scanner(System.in);
+      
+         System.out.print("\nAre you absolutely sure you want to delete " + id + "\'s profile?\r"
                					+ "\nAll account and portfolio data will be permanently erased.\r"
                					+ "\n(y/n): ");
-         Scanner input = new Scanner(System.in);
          if ((char) input.nextInt() == 'y') {
             ProfileController.remove(id);
             System.out.print("\n\t\t\t\t\tProfile Deleted!\r");
