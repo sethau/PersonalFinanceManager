@@ -1,4 +1,5 @@
    package Forms;
+   import Controllers.PortfolioController;
    import Domain.Profile;
    import Domain.Portfolio;
    import Domain.Stock;

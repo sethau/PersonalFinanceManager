@@ -35,7 +35,7 @@
                   account.changeBalance(num);
                   System.out.print("\n\r"
                      					+ "\n\t\t\t\t\tAccount Created!\r");
-                  AccountController.create((Object) account);
+                  AccountController.save(account);
                   return account;
                   valid = true;
                   break;
@@ -54,7 +54,7 @@
                   account.setInterest(num);
                   System.out.print("\n\r"
                      					+ "\n\t\t\t\t\tAccount Created!\r");
-                  AccountController.create((Object) account);
+                  AccountController.save(account);
                   return account;
                   valid = true;
                   break;
@@ -79,7 +79,7 @@
                   ((CreditAccount) account).setLimit(num);
                   System.out.print("\n\r"
                      					+ "\n\t\t\t\t\tAccount Created!\r");
-                  AccountController.create((Object) account);
+                  AccountController.save(account);
                   return account;
                   valid = true;
                   break;
@@ -98,7 +98,7 @@
                   account.setInterest(num);
                   System.out.print("\n\r"
                      					+ "\n\t\t\t\t\tAccount Created!\r");
-                  AccountController.create((Object) account);
+                  AccountController.save(account);
                   return account;
                   valid = true;
                   break;
@@ -133,13 +133,13 @@
          return "Back";
       }
       
-      public boolean confirmClose(String id) {
+      public boolean confirmClose(Account account) {
          System.out.print("\nAre you sure you want to close this account?\r"
             					+ "\nThe account will not be deleted, but it will become inactive.\r"
             					+ "\n(y/n): ");
          Scanner input = new Scanner(System.in);
          if ((char) input.nextInt() == 'y') {
-            ProfileController.remove(id);
+            AccountController.remove(account);
             System.out.print("\n\t\t\t\t\tAccount Closed!\r");
             return true;
          }

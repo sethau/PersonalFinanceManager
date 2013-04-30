@@ -1,7 +1,6 @@
    package Forms;
    import Domain.Portfolio;
    import Domain.Trade;
-   import Controllers.TradeController;
    import Controllers.RealTimeStockQuote;
    
    public class TradeForm {

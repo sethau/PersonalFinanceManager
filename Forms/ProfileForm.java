@@ -15,7 +15,7 @@
          while (!valid) {
             System.out.print("\nPlease Enter A Username: ");
             in = input.next();
-            if (Profilecontroller.get(in) == null) {
+            if (ProfileController.get(in) == null) {
                System.out.print("\r\nPlease Enter A Password: ");
                profile = new Profile(in, input.next());
                valid = true;
@@ -25,7 +25,7 @@
             }
          }
          
-         ProfileController.create((Object) profile);
+         ProfileController.save(profile);
       	
          return profile;
       }
@@ -40,7 +40,7 @@
             System.out.print("\n\t\t\t\t\tPlease Log In.\r"
                					+ "\nUsername: ");
             in = input.next();
-            profile = (Profile) ProfileController.get(in);
+            profile = ProfileController.get(in);
             if (profile != null) {
                System.out.print("\r\nPassword: ");
                if (profile.getPassword().equals(input.next())) {
