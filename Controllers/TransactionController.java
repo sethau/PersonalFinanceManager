@@ -33,9 +33,13 @@ public class TransactionController extends Controller {
 	public static String createForm(String menuOption, Profile profile, Account account) throws IOException {
 		if (menuOption.equals("View Transactions")) {
 			String result = TransactionForm.viewTransactions();
+			int index;
 			if (result.equals("All")) {
 				ArrayList<Transaction> transactions = getAll(account);
-				TransactionForm.displayTransactions(transactions);
+				index = TransactionForm.displayTransactions(transactions);
+				if (index > 0 && TransactionForm.confirmDelete(((Integer) index).toString())) {
+					remove(profile, account, transactions.get(index - 1));
+				}
 			}
 			else if (result.equals("Vendor")) {
 				String vendor = TransactionForm.getVendor();
@@ -46,7 +50,10 @@ public class TransactionController extends Controller {
 						transForVendor.add(transaction);
 					}
 				}
-				TransactionForm.displayTransactions(transForVendor);
+				index = TransactionForm.displayTransactions(transForVendor);
+				if (index > 0 && TransactionForm.confirmDelete(((Integer) index).toString())) {
+					remove(profile, account, transactions.get(index - 1));
+				}
 			}
 			else if (result.equals("Category")) {
 				String category = TransactionForm.getCategory();
@@ -57,7 +64,10 @@ public class TransactionController extends Controller {
 						transForCategory.add(transaction);
 					}
 				}
-				TransactionForm.displayTransactions(transForCategory);
+				index = TransactionForm.displayTransactions(transForCategory);
+				if (index > 0 && TransactionForm.confirmDelete(((Integer) index).toString())) {
+					remove(profile, account, transactions.get(index - 1));
+				}
 			}
 		}
 		else if (menuOption.equals("New Transaction")) {

@@ -40,7 +40,9 @@ public class ProfileController {
 		ArrayList<Account> accounts = AccountController.getAll(profile);
 		
 		double accountValue = 0;
+		if (accounts != null) {
 		for (Account account : accounts) {
+			if (account != null) {
 			if (account instanceof LoanAccount) {
 				accountValue -= account.getBalance();
 			} else if (account instanceof CreditAccount) {
@@ -50,6 +52,8 @@ public class ProfileController {
 			} else {
 				accountValue += account.getBalance();
 			}
+			}
+		}
 		}
 		double portfolioValue = PortfolioController.getStockValue(profile);
 		

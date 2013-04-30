@@ -25,7 +25,7 @@ import Controllers.RealTimeStockQuote;
                   					+ "\nNumber Of Shares To Be Bought: ");
                num = input.nextInt();
                System.out.print("\nThis will Cost $" + num * price + ", confirm (y/n): ");
-               confirm = (char) input.nextInt();
+               confirm = input.next().charAt(0);
                if (confirm == 'y') {
                   trade = new Trade(num, in, price);
                   System.out.print("\n\t\t\t\t\tTrade Successful!\t\t\t\r");
@@ -60,7 +60,7 @@ import Controllers.RealTimeStockQuote;
                   					+ "\nNumber Of Shares To Be Sold: ");
                num = input.nextInt();
                System.out.print("\nThis will Yield $" + num * price + ", confirm (y/n): ");
-               confirm = (char) input.nextInt();
+               confirm = input.next().charAt(0);
                if (confirm == 'y') {
                   trade = new Trade(num * -1, in, price);
                   System.out.print("\n\t\t\t\t\tTrade Successful!\t\t\t\r");
@@ -80,7 +80,7 @@ import Controllers.RealTimeStockQuote;
       public static void viewTradeHistory(ArrayList<Trade> trades) {
          for (Trade trade : trades) {
             System.out.print("\r\n " + trade.getDate() + "\r\n");
-            if (trade.getNumStocks() < 0) {
+            if (trade.getNumStocks() > 0) {
                System.out.print("Bought ");
             } 
             else {

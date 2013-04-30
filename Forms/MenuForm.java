@@ -7,7 +7,7 @@ import java.util.Scanner;
    
    public class MenuForm {	
       public static String displayMenu(Profile profile) throws FileNotFoundException {
-         char in;
+         int in;
          Scanner input = new Scanner(System.in);
       	
          System.out.print("\n\t\t\t\t\tWelcome, " + profile.getUsername() + "!\r"
@@ -20,15 +20,15 @@ import java.util.Scanner;
                					+ "\n4) Log Out\r"
                					+ "\n\r"
                					+ "\nPlease Select An Option: ");
-            in = (char) input.nextInt();
+            in = input.nextInt();
             switch (in) {
-               case '1':
+               case 1:
                   return "View Accounts";
-               case '2':
+               case 2:
                   return "View Portfolio";
-               case '3':
+               case 3:
                   return "Delete Profile";
-               case '4':
+               case 4:
                   return "Log Out";
                default:
                   System.out.print("\r\n\t\t\t\t\tInvalid Input!");

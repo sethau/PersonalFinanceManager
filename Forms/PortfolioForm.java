@@ -11,7 +11,7 @@ import java.util.ArrayList;
    public class PortfolioForm {
       public static String viewPortfolio(Profile profile) throws FileNotFoundException {
          Portfolio portfolio = PortfolioController.get(profile);
-         char in;
+         int in;
          Scanner input = new Scanner(System.in);
       	
          System.out.print("\n" + profile.getUsername() + "\'s Portfolio\r"
@@ -27,15 +27,15 @@ import java.util.ArrayList;
                					+ "\nPlease Select An Option: ");
             in = (char) input.nextInt();
             switch (in) {
-               case '1':
+               case 1:
                   return "Back";
-               case '2':
+               case 2:
                   return "View Holdings";
-               case '3':
+               case 3:
                   return "View Trade History";
-               case '4':
+               case 4:
                   return "Buy";
-               case '5':
+               case 5:
                   return "Sell";
                default:
                   System.out.print("\r\n\t\t\t\t\tInvalid Input!");

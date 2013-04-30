@@ -43,7 +43,6 @@ public class PortfolioController {
 		}
 		else if (menuOption.equals("View Trade History")) {
 			TradeController.createForm(menuOption, profile);
-			TradeForm.viewTradeHistory(TradeController.getAll(profile));
 		}
 		else if (menuOption.equals("Buy")) {
 			TradeController.createForm(menuOption, profile);

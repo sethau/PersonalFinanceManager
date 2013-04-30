@@ -14,14 +14,14 @@ import java.util.ArrayList;
          System.out.print("\r\nAmount Paid: ");
          transaction.setAmount(input.nextDouble());
          System.out.print("\r\nVendor: ");
-         transaction.setVendor(input.nextLine());
+         transaction.setVendor(input.next());
          System.out.print("\r\nCategory: ");
-         transaction.setCategory(input.nextLine());
+         transaction.setCategory(input.next());
          return transaction;
       }
    
       public static String viewTransactions() {
-         char in;
+         int in;
          Scanner input = new Scanner(System.in);
       	
          while (true) {
@@ -31,15 +31,15 @@ import java.util.ArrayList;
                					+ "\n4) Select Transactions By Category\r"
                					+ "\n\r"
                					+ "\nPlease Select An Option: ");
-            in = (char) input.nextInt();
+            in = input.nextInt();
             switch (in) {
-               case '1':
+               case 1:
                   return "Back";
-               case '2':
+               case 2:
                   return "All";
-               case '3':
+               case 3:
                   return "Vendor";
-               case '4':
+               case 4:
                   return "Category";
                default:
                   System.out.print("\r\n\t\t\t\t\tInvalid Input!");
@@ -50,18 +50,18 @@ import java.util.ArrayList;
       public static String getVendor() {
 		Scanner input = new Scanner(System.in);
       	System.out.print("\r\nVendor: ");
-		return input.nextLine();
+		return input.next();
       }
    	
       public static String getCategory() {
       	Scanner input = new Scanner(System.in);
       	System.out.print("\r\nCategory: ");
-		return input.nextLine();
+		return input.next();
       }
    	
-      public static String displayTransactions(ArrayList<Transaction> transactions) {
+      public static int displayTransactions(ArrayList<Transaction> transactions) {
          int id = 1;
-         char in;
+         int in;
          Scanner input = new Scanner(System.in);
          
          for (Transaction transaction : transactions) {
@@ -78,11 +78,11 @@ import java.util.ArrayList;
                					+ "\n2) Delete Transaction\r"
                					+ "\n\r"
                					+ "\nPlease Select An Option: ");
-            in = (char) input.nextInt();
+            in = input.nextInt();
             switch (in) {
-               case '1':
-                  return "Back";
-               case '2':
+               case 1:
+                  return 0;
+               case 2:
                   while (id < 1 || id > transactions.size()) {
                      System.out.print("\r\nSelect Transaction To Be Deleted: ");
                      id = input.nextInt();
@@ -90,7 +90,7 @@ import java.util.ArrayList;
                         System.out.print("\r\n\t\t\t\t\tInvalid Input!");
                      }
                   }
-                  return ((Integer) id).toString();
+                  return id;
                default:
                   System.out.print("\r\n\t\t\t\t\tInvalid Input!");
             }
@@ -104,7 +104,7 @@ import java.util.ArrayList;
             					+ "\nAre you absolutely sure you want to delete transaction " + id + "?\r"
             					+ "\nThe specified Transaction data will be permanently erased.\r"
             					+ "\n(y/n): ");
-         if ((char) input.nextInt() == 'y') {
+         if (input.next().charAt(0) == 'y') {
             System.out.print("\n\t\t\t\tTransaction Deleted!\r");
             return true;
          }

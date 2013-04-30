@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,6 +26,7 @@ public class RepositoryAdaptor {
 			}
 			Scanner scan = new Scanner(profInfo);
 			String password = scan.nextLine();
+			scan.close();
 			return new Profile(username, password);
 		}
 		return null;
@@ -60,6 +62,7 @@ public class RepositoryAdaptor {
 			balance = Double.parseDouble(scan.nextLine());
 			interest = Double.parseDouble(scan.nextLine());
 			type = Integer.parseInt(scan.nextLine());
+			scan.close();
 			switch (type) {
 			case Account.LOAN:
 				return new LoanAccount(profile.getUsername(), name, balance, interest);
@@ -86,8 +89,12 @@ public class RepositoryAdaptor {
 		});
 		ArrayList<Account> accounts = new ArrayList<Account>();
 		for (String acctDir : acctDirs) {
-			Account acct = getAccount(profile, acctDir);
-			accounts.add(acct);
+			if (acctDir != "Portfolio") {
+				Account acct = getAccount(profile, acctDir);
+				if (acct != null) {
+					accounts.add(acct);
+				}
+			}
 		}
 		return accounts;
 	}
@@ -106,6 +113,7 @@ public class RepositoryAdaptor {
 			amount = Double.parseDouble(scan.nextLine());
 			vendor = scan.nextLine();
 			category = scan.nextLine();
+			scan.close();
 			return new Transaction(amount, vendor, category, timestamp);
 		}
 		return null;
@@ -140,7 +148,13 @@ public class RepositoryAdaptor {
 			}
 			Scanner scan = new Scanner(portInfo);
 			double balance;
+			try {
 			balance = Double.parseDouble(scan.nextLine());
+			}
+			catch (Exception E){
+				balance = 0;
+			}
+			scan.close();
 			return new Portfolio(profile.getUsername(), balance);
 		}
 		return null;
@@ -161,6 +175,7 @@ public class RepositoryAdaptor {
 			numStocks = Integer.parseInt(scan.nextLine());
 			company = scan.nextLine();
 			price = Double.parseDouble(scan.nextLine());
+			scan.close();
 			return new Trade(numStocks, company, price, timestamp);
 		}
 		return null;
@@ -194,6 +209,7 @@ public class RepositoryAdaptor {
 			Scanner scan = new Scanner(stockInfo);
 			int numShares;
 			numShares = Integer.parseInt(scan.nextLine());
+			scan.close();
 			return new Stock(company, numShares);
 		}
 		return null;
@@ -208,9 +224,11 @@ public class RepositoryAdaptor {
 			}
 		});
 		ArrayList<Stock> stocks = new ArrayList<Stock>();
-		for (String stockDir : stockDirs) {
-			Stock stock = getStock(profile, stockDir.replaceAll(".txt", ""));
-			stocks.add(stock);
+		if (stockDirs != null) {
+			for (String stockDir : stockDirs) {
+				Stock stock = getStock(profile, stockDir.replaceAll(".txt", ""));
+				stocks.add(stock);
+			}
 		}
 		return stocks;
 	}
@@ -219,13 +237,13 @@ public class RepositoryAdaptor {
 		File profFile = new File(DATA_PATH + "/" + profile.getUsername() + "/password.txt");
 		File profDir = new File(DATA_PATH + "/" + profile.getUsername());
 		if (!profDir.exists()) {
-			profDir.mkdir();
+			profDir.mkdirs();
 			File portDir = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio");
-			portDir.mkdir();
+			portDir.mkdirs();
 			File stockDir = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/Stocks");
-			stockDir.mkdir();
+			stockDir.mkdirs();
 			File tradeDir = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/Trades");
-			tradeDir.mkdir();
+			tradeDir.mkdirs();
 			File portFile = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/"
 					+ "portfolioInfo.txt");
 			portFile.createNewFile();
@@ -241,13 +259,13 @@ public class RepositoryAdaptor {
 		File profFile = new File(DATA_PATH + "/" + profile.getUsername() + "/password.txt");
 		File profDir = new File(DATA_PATH + "/" + profile.getUsername());
 		if (!profDir.exists()) {
-			profDir.mkdir();
+			profDir.mkdirs();
 			File portDir = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio");
-			portDir.mkdir();
+			portDir.mkdirs();
 			File stockDir = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/Stocks");
-			stockDir.mkdir();
+			stockDir.mkdirs();
 			File tradeDir = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/Trades");
-			tradeDir.mkdir();
+			tradeDir.mkdirs();
 			File portFile = new File(DATA_PATH + "/" + profile.getUsername() + "/Portfolio/"
 					+ "portfolioInfo.txt");
 			portFile.createNewFile();
@@ -405,6 +423,9 @@ public class RepositoryAdaptor {
 		out.println(transaction.getVendor());
 		out.println(transaction.getCategory());
 		out.close();
+		
+		account.changeBalance(transaction.getAmount());
+		saveAccount(profile, account);
 		return true;
 	}
 	
@@ -412,6 +433,7 @@ public class RepositoryAdaptor {
 		File dir = new File(DATA_PATH + "/" + profile.getUsername());
 		if (dir.exists()) {
 			delete(dir);
+			//Files.delete(dir.toPath());
 		}
 		return true;
 	}
@@ -450,6 +472,9 @@ public class RepositoryAdaptor {
 		File file = new File(DATA_PATH + "/" + profile.getUsername() + "/" + account.getName()
 			+ "/Transactions/" + transaction.getDate() + ".txt");
 		if (file.exists()) {
+			account.changeBalance(-transaction.getAmount());
+			saveAccount(profile, account);
+			
 			delete(file);
 		}
 		return true;
@@ -458,20 +483,20 @@ public class RepositoryAdaptor {
 	private static boolean delete(File file) throws IOException {
 		if(file.isDirectory()) {
 			if (file.list().length == 0) {
-				file.delete();
+				Files.delete(file.toPath());
 			} else {
 				String files[] = file.list();
 				
 				for (String temp : files) {
-					File fileDelete = new File(file, temp);
+					File fileDelete = new File(file.getPath() + "/" + temp);
 					delete(fileDelete);
 				}
 				if (file.list().length == 0) {
-					file.delete();
+					Files.delete(file.toPath());
 				}
 			}
 		} else {
-			file.delete();
+			Files.delete(file.toPath());
 		}
 		return true;
 	}

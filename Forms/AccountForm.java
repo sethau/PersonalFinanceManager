@@ -11,8 +11,9 @@ import java.util.Scanner;
    
    public class AccountForm {
       public static Account newAccount(Profile profile) {
-         char in;
+         int in;
          double num = -1;
+         String accountName;
          Scanner input = new Scanner(System.in);
       	
          while (true) {
@@ -23,14 +24,15 @@ import java.util.Scanner;
                					+ "\n5) Loan Account\r"
                					+ "\n\r"
                					+ "\nPlease Select An Account Type: ");
-            in = (char) input.nextInt();
+            in = input.nextInt();
             Account account = null;
             switch (in) {
-			   case '1':
+			   case 1:
 			      return account;
-               case '2':
+               case 2:
                   System.out.print("\r\nAccount Name: ");
-                  account = new CheckingAccount(profile.getUsername(), input.nextLine());
+                  accountName = input.next();
+                  account = new CheckingAccount(profile.getUsername(), accountName);
                   while (num < 0) {
                      System.out.print("\r\nStarting Balance: ");
                      num = input.nextDouble();
@@ -39,13 +41,14 @@ import java.util.Scanner;
                   System.out.print("\n\r"
                      					+ "\n\t\t\t\t\tAccount Created!\r");
                   return account;
-               case '3':
+               case 3:
                   System.out.print("\r\nAccount Name: ");
-                  account = new SavingsAccount(profile.getUsername(), input.nextLine());
+                  account = new SavingsAccount(profile.getUsername(), input.next());
                   while (num < 0) {
                      System.out.print("\r\nStarting Balance: ");
                      num = input.nextDouble();
                   }
+                  account.changeBalance(num);
                   num = -1;
                   while (num < 0) {
                      System.out.print("\r\nMonthly Interest Rate: ");
@@ -55,13 +58,14 @@ import java.util.Scanner;
                   System.out.print("\n\r"
                      					+ "\n\t\t\t\t\tAccount Created!\r");
                   return account;
-               case '4':
+               case 4:
                   System.out.print("\r\nAccount Name: ");
-                  account = new CreditAccount(profile.getUsername(), input.nextLine());
+                  account = new CreditAccount(profile.getUsername(), input.next());
                   while (num < 0) {
                      System.out.print("\r\nStarting Balance: ");
                      num = input.nextDouble();
                   }
+                  account.changeBalance(num);
                   num = -1;
                   while (num < 0) {
                      System.out.print("\r\nMonthly Interest Rate: ");
@@ -77,13 +81,14 @@ import java.util.Scanner;
                   System.out.print("\n\r"
                      					+ "\n\t\t\t\t\tAccount Created!\r");
                   return account;
-               case '5':
+               case 5:
                   System.out.print("\r\nAccount Name: ");
-                  account = new LoanAccount(profile.getUsername(), input.nextLine());
+                  account = new LoanAccount(profile.getUsername(), input.next());
                   while (num < 0) {
                      System.out.print("\r\nStarting Balance: ");
                      num = input.nextDouble();
                   }
+                  account.changeBalance(num);
                   num = -1;
                   while (num < 0) {
                      System.out.print("\r\nMonthly Interest Rate: ");
@@ -131,7 +136,7 @@ import java.util.Scanner;
             					+ "\nThe account will not be deleted, but it will become inactive.\r"
             					+ "\n(y/n): ");
          Scanner input = new Scanner(System.in);
-         if ((char) input.nextInt() == 'y') {
+         if (input.nextLine().charAt(0) == 'y') {
             System.out.print("\n\t\t\t\t\tAccount Closed!\r");
             return true;
          }
@@ -139,7 +144,7 @@ import java.util.Scanner;
       }
 	  
 	  public static int viewAccounts(Profile profile, ArrayList<Account> accounts) {
-		int index = 3;
+		int index = 4;
 		Scanner input = new Scanner(System.in);
 		
 		System.out.print("\n\t\t\t\t\t" + profile.getUsername() + "\'s Accounts\r"
@@ -182,10 +187,10 @@ import java.util.Scanner;
             					+ "\nType: " + type + "\r"
             					+ "\nCurrent Balance: " + account.getBalance() + "\r");
          if (!(account instanceof CheckingAccount)) {
-            System.out.print("\n(if !CheckingAccount)Interest Rate: " + account.getInterest() + "\r");
+            System.out.print("\nInterest Rate: " + account.getInterest() + "\r");
          }
          if (account instanceof CreditAccount) {
-            System.out.print("\n(if CreditAccount)Credit Limit: " + ((CreditAccount) account).getLimit() + "\r");
+            System.out.print("\nCredit Limit: " + ((CreditAccount) account).getLimit() + "\r");
          }
          System.out.print("\n\r"
             				+ "\n1) Back\r"

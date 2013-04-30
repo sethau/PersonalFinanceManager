@@ -54,12 +54,11 @@ public class AccountController {
 		}
 		else if (menuOption.equals("Close Account")) {
 			index = AccountForm.closeAccount(accounts);
-			
 			if (index == 0) {
 				return "Back";
 			}
 			else {
-				remove(profile, accounts.get(index));
+				remove(profile, accounts.get(index - 1));
 				return "Created";
 			}
 		}

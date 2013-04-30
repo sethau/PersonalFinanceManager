@@ -62,7 +62,7 @@ import java.lang.String;
          System.out.print("\nAre you absolutely sure you want to delete " + profile.getUsername() + "\'s profile?\r"
                					+ "\nAll account and portfolio data will be permanently erased.\r"
                					+ "\n(y/n): ");
-         if ((char) input.nextInt() == 'y') {
+         if ((char) input.next().charAt(0) == 'y') {
             System.out.print("\n\t\t\t\t\tProfile Deleted!\r");
             return true;
          }

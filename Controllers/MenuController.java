@@ -37,12 +37,19 @@ import java.lang.String;
                      	//Close Account
                      	//View Account
 						if (selection == 2) {
+							result = "Create Account";
+							result = AccountController.createForm(result, profile, 0);
+							result = "Main Menu";
+						}
+						else if (selection == 3) {
 							result = "Close Account";
 							result = AccountController.createForm(result, profile, 0);
+							result = "Main Menu";
 						}
 						else {
 							result = "View Account";
 							result = AccountController.createForm(result, profile, selection);
+							result = "Main Menu";
 						}
                      }
                   }
@@ -61,6 +68,7 @@ import java.lang.String;
                      	//Buy
                      	//Sell
                         result = PortfolioController.createForm(result, profile);
+                        result = "Main Menu";
                      }
                   }
                } 

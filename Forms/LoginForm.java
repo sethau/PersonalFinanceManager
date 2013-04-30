@@ -7,7 +7,7 @@
    public class LoginForm {
       public static String welcome() {
          Scanner input = new Scanner(System.in);
-         char in;
+         int in;
          Profile profile;
       	
          System.out.print("\t\t\t\t\tWelcome To The PFM!\r");
@@ -17,11 +17,11 @@
                					+ "\n2) Existing User\r"
                					+ "\n\r"
                					+ "\nPlease Select An Option: ");
-            in = (char) input.nextInt();
+            in = input.nextInt();
             switch (in) {
-               case '1':
+               case 1:
                   return "New User";
-               case '2':
+               case 2:
                   return "Existing User";
                default:
                   System.out.print("\r\n\t\t\t\t\tInvalid Input!");
