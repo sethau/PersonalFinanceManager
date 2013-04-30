@@ -65,11 +65,9 @@ public class AccountController {
 		else if (menuOption.equals("View Account")) {
 			account = accounts.get(selection - 4);
 			result = AccountForm.viewAccount(account);
-			if (result.equals("View Transactions")) {
-				
-			}
-			else if (result.equals("New Transaction")) {
-				TransactionController.viewTransactions(profile, account);
+			if (result.equals("View Transactions")
+				|| result.equals("New Transaction")) {
+				TransactionController.createForm(result, profile, account);
 			}
 			return result;
 		}

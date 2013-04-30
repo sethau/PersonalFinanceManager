@@ -27,4 +27,17 @@ public class TradeController {
 	public static ArrayList<Trade> getAll(Profile profile) throws FileNotFoundException {
 		return RepositoryAdaptor.getTrades(profile);
 	}
+	
+	public static String createForm(String menuOption, Profile profile) {
+		if (menuOption.equals("View Trade History")) {
+			TradeForm.viewTradeHistory(TradeController.getAll(profile));
+		}
+		else if (menuOption.equals("Buy")) {
+			save(profile, TradeForm.buy());
+		}
+		else if (menuOption.equals("Sell")) {
+			save(profile, TradeForm.sell());
+		}
+		return "Back"
+	}
 }

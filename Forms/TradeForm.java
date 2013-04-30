@@ -4,14 +4,14 @@
    import Controllers.RealTimeStockQuote;
    
    public class TradeForm {
-      public Trade buy(Portfolio portfolio) {
+      public Trade buy() {
          boolean valid = false;
          String in;
          double price;
          int num;
          char confirm;
          Scanner input = new Scanner(System.in);
-         Trade trade = new Trade(portfolio);
+         Trade trade = new Trade();
       	
          while (!vaild) {
             System.out.print("\r\nCompany: ");
@@ -24,8 +24,7 @@
                System.out.print("\nThis will Cost $" + num * price + ", confirm (y/n): ");
                confirm = (char) input.getNextInt();
                if (confirm == 'y') {
-                  trade.setNumShares(num);
-                  trade.setPrice(price);
+                  trade = new Trade(num, in, price);
                   System.out.print("\n\t\t\t\t\tTrade Successful!\t\t\t\r");
                   return trade;
                } 
@@ -47,7 +46,7 @@
          int num;
          char confirm;
          Scanner input = new Scanner(System.in);
-         Trade trade = new Trade(portfolio);
+         Trade trade;
       	
          while (!vaild) {
             System.out.print("\r\nCompany: ");
@@ -60,8 +59,7 @@
                System.out.print("\nThis will Yield $" + num * price + ", confirm (y/n): ");
                confirm = (char) input.getNextInt();
                if (confirm == 'y') {
-                  trade.setNumShares(num * -1);
-                  trade.setPrice(price);
+                  trade = new Trade(num * -1, in, price);
                   System.out.print("\n\t\t\t\t\tTrade Successful!\t\t\t\r");
                   return trade;
                } 

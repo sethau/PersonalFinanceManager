@@ -28,4 +28,29 @@ public class TransactionController extends Controller {
 	public static ArrayList<Transaction> getAll(Account account) throws FileNotFoundException {
 		return RepositoryAdaptor.getTransactions(account);
 	}
+	
+	public static String createForm(String menuOption, Profile profile, Account account) {
+		if (menuOption.equals("View Transactions") {
+			String result = TransactionForm.viewTransactions(profile, account);
+			if (result.equals("Back")) {
+			
+			}
+			else if (result.equals("All")) {
+			
+			}
+			else if (result.equals("Date")) {
+			
+			}
+			else if (result.equals("Vendor")) {
+			
+			}
+			else if (result.equals("Category")) {
+			
+			}
+		}
+		else if (result.equals("New Transaction")) {
+			save(profile, account, TransactionForm.newTransaction(account));
+		}
+		return "Back";		
+	}
 }
