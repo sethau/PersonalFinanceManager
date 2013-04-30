@@ -1,3 +1,5 @@
-public class VisualizerForm implements Form {
+package Forms;
+
+public class VisualizerForm {
 
 }

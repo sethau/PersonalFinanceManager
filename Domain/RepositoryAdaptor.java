@@ -102,10 +102,11 @@ public class RepositoryAdaptor {
 			}
 			Scanner scan = new Scanner(transInfo);
 			double amount;
-			String vendor;
+			String vendor, category;
 			amount = Double.parseDouble(scan.nextLine());
 			vendor = scan.nextLine();
-			return new Transaction(amount, vendor, timestamp);
+			category = scan.nextLine();
+			return new Transaction(amount, vendor, category, timestamp);
 		}
 		return null;
 	}
@@ -402,6 +403,7 @@ public class RepositoryAdaptor {
 		PrintWriter out = new PrintWriter(transFile);
 		out.println(transaction.getAmount());
 		out.println(transaction.getVendor());
+		out.println(transaction.getCategory());
 		out.close();
 		return true;
 	}

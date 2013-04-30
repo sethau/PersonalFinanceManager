@@ -8,6 +8,8 @@ import Domain.Portfolio;
 import Domain.Profile;
 import Domain.RepositoryAdaptor;
 import Domain.Stock;
+import Forms.PortfolioForm;
+import Forms.TradeForm;
 
 public class PortfolioController {
 	
@@ -32,7 +34,7 @@ public class PortfolioController {
 		return stockValue;
 	}
 	
-	public static String createForm(String menuOption, Profile profile) {
+	public static String createForm(String menuOption, Profile profile) throws IOException {
 		if (menuOption.equals("View Portfolio")) {
 			return PortfolioForm.viewPortfolio(profile);
 		}
@@ -49,6 +51,6 @@ public class PortfolioController {
 		else if (menuOption.equals("Sell")) {
 			TradeController.createForm(menuOption, profile);
 		}
-		return "Back"
+		return "Back";
 	}
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import Domain.Profile;
 import Domain.RepositoryAdaptor;
 import Domain.Trade;
+import Forms.TradeForm;
 
 public class TradeController {
 	
@@ -28,7 +29,7 @@ public class TradeController {
 		return RepositoryAdaptor.getTrades(profile);
 	}
 	
-	public static String createForm(String menuOption, Profile profile) {
+	public static String createForm(String menuOption, Profile profile) throws IOException {
 		if (menuOption.equals("View Trade History")) {
 			TradeForm.viewTradeHistory(TradeController.getAll(profile));
 		}
@@ -38,6 +39,6 @@ public class TradeController {
 		else if (menuOption.equals("Sell")) {
 			save(profile, TradeForm.sell());
 		}
-		return "Back"
+		return "Back";
 	}
 }

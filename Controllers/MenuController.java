@@ -1,15 +1,17 @@
    package Controllers;
    import Forms.LoginForm;
-   import Forms.MenuForm;
-   import Domain.Profile;
-   import java.lang.String;
+import Forms.MenuForm;
+import Domain.Profile;
+
+import java.io.IOException;
+import java.lang.String;
 
    public class MenuController {
-      public static void main(String[] args) {
+      public static void main(String[] args) throws IOException {
          MenuController.createForm();
       }
       
-      private static void createForm() {
+      private static void createForm() throws IOException {
 		int selection;
          Profile profile;
          String result;
@@ -36,7 +38,7 @@
                      	//View Account
 						if (selection == 2) {
 							result = "Close Account";
-							result = AccountController.createForm(result, profile, null);
+							result = AccountController.createForm(result, profile, 0);
 						}
 						else {
 							result = "View Account";

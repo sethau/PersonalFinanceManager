@@ -10,6 +10,7 @@ import Domain.CreditAccount;
 import Domain.LoanAccount;
 import Domain.Profile;
 import Domain.RepositoryAdaptor;
+import Forms.ProfileForm;
 
 public class ProfileController {
 	
@@ -35,7 +36,7 @@ public class ProfileController {
 		return RepositoryAdaptor.getProfiles();
 	}
 	
-	public double getNetWorth(Profile profile) throws FileNotFoundException {
+	public static double getNetWorth(Profile profile) throws FileNotFoundException {
 		ArrayList<Account> accounts = AccountController.getAll(profile);
 		
 		double accountValue = 0;
@@ -55,8 +56,8 @@ public class ProfileController {
 		return accountValue + portfolioValue;
 	}
 	
-	public static Profile createForm(String menuOption, Profile profile) {
-		if (menuOption.equals("Delete Profile") {
+	public static Profile createForm(String menuOption, Profile profile) throws IOException {
+		if (menuOption.equals("Delete Profile")) {
 			if (ProfileForm.confirmDelete(profile)) {
 				remove(profile);
 				return null;
@@ -65,13 +66,14 @@ public class ProfileController {
 				return profile;
 			}
 		}
-		else if (menuOption.equals("New User") {
+		else if (menuOption.equals("New User")) {
 			profile = ProfileForm.newUser();
 			save(profile);
 			return profile;
 		}
-		else if (menuOption.equals("Existing User") {
+		else if (menuOption.equals("Existing User")) {
 			return ProfileForm.existingUser();
 		}
+		return null;
 	}
 }

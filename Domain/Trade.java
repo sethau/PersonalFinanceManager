@@ -24,6 +24,10 @@ public class Trade {
 		this.price = price;
 	}
 	
+	public Trade() {
+		this(0, "", 0);
+	}
+	
 	public int getNumStocks() {
 		return numStocks;
 	}
@@ -38,5 +42,25 @@ public class Trade {
 	
 	public double getPrice() {
 		return price;
+	}
+	
+	public boolean setNumStocks(int numStocks) {
+		this.numStocks = numStocks;
+		return true;
+	}
+	
+	public boolean setCompany(String company) {
+		this.company = company;
+		return true;
+	}
+	
+	public boolean setDate(long date) {
+		this.date = date;
+		return true;
+	}
+	
+	public boolean setPrice(double price) {
+		this.price = price;
+		return true;
 	}
 }

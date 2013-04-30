@@ -1,7 +1,10 @@
    package Forms;
-   import Domain.Portfolio;
-   import Domain.Trade;
-   import Controllers.RealTimeStockQuote;
+   import java.util.ArrayList;
+import java.util.Scanner;
+
+import Domain.Portfolio;
+import Domain.Trade;
+import Controllers.RealTimeStockQuote;
    
    public class TradeForm {
       public static Trade buy() {
@@ -13,16 +16,16 @@
          Scanner input = new Scanner(System.in);
          Trade trade = new Trade();
       	
-         while (!vaild) {
+         while (!valid) {
             System.out.print("\r\nCompany: ");
-            in = input.getNext();
+            in = input.next();
             price = RealTimeStockQuote.price(in);
             if (price != -1) {
                System.out.print("\r\nCurrent Share Price: " + price + "\r"
                   					+ "\nNumber Of Shares To Be Bought: ");
-               num = input.getNextInt();
+               num = input.nextInt();
                System.out.print("\nThis will Cost $" + num * price + ", confirm (y/n): ");
-               confirm = (char) input.getNextInt();
+               confirm = (char) input.nextInt();
                if (confirm == 'y') {
                   trade = new Trade(num, in, price);
                   System.out.print("\n\t\t\t\t\tTrade Successful!\t\t\t\r");
@@ -48,16 +51,16 @@
          Scanner input = new Scanner(System.in);
          Trade trade;
       	
-         while (!vaild) {
+         while (!valid) {
             System.out.print("\r\nCompany: ");
-            in = input.getNext();
+            in = input.next();
             price = RealTimeStockQuote.price(in);
             if (price != -1) {
                System.out.print("\r\nCurrent Share Price: " + price + "\r"
                   					+ "\nNumber Of Shares To Be Sold: ");
-               num = input.getNextInt();
+               num = input.nextInt();
                System.out.print("\nThis will Yield $" + num * price + ", confirm (y/n): ");
-               confirm = (char) input.getNextInt();
+               confirm = (char) input.nextInt();
                if (confirm == 'y') {
                   trade = new Trade(num * -1, in, price);
                   System.out.print("\n\t\t\t\t\tTrade Successful!\t\t\t\r");
@@ -77,13 +80,13 @@
       public static void viewTradeHistory(ArrayList<Trade> trades) {
          for (Trade trade : trades) {
             System.out.print("\r\n " + trade.getDate() + "\r\n");
-            if (trade.getNumShares() < 0) {
-               System.print("Bought ");
+            if (trade.getNumStocks() < 0) {
+               System.out.print("Bought ");
             } 
             else {
-               System.print("Sold ");
+               System.out.print("Sold ");
             }
-            System.out.print(Math.abs(trade.getNumShares()) + " in " + trade.getCompany() + " at " + trade.getPrice() + "\r"
+            System.out.print(Math.abs(trade.getNumStocks()) + " in " + trade.getCompany() + " at " + trade.getPrice() + "\r"
                					+ "\n\r");
          }
       }

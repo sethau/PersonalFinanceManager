@@ -1,16 +1,16 @@
    package Forms;
    import Controllers.ProfileController;
-   import Domain.Profile;
-   import java.io.*;
-   import java.util.Scanner;
-   import java.lang.String;
+import Domain.Profile;
+import java.io.*;
+import java.util.Scanner;
+import java.lang.String;
    
    public class ProfileForm {
-      public static Profile newUser() {
+      public static Profile newUser() throws FileNotFoundException {
          boolean valid = false;
          String in;
          Scanner input = new Scanner(System.in);
-         Profile profile;
+         Profile profile = null;
       	
          while (!valid) {
             System.out.print("\nPlease Enter A Username: ");
@@ -28,11 +28,11 @@
          return profile;
       }
       
-      public static Profile existingUser() {
+      public static Profile existingUser() throws FileNotFoundException {
          boolean valid = false;
          String in;
          Scanner input = new Scanner(System.in);
-         Profile profile;
+         Profile profile = null;
       	
          while (!valid) {
             System.out.print("\n\t\t\t\t\tPlease Log In.\r"
@@ -59,7 +59,7 @@
       public static boolean confirmDelete(Profile profile) {
          Scanner input = new Scanner(System.in);
       
-         System.out.print("\nAre you absolutely sure you want to delete " + profile.getName() + "\'s profile?\r"
+         System.out.print("\nAre you absolutely sure you want to delete " + profile.getUsername() + "\'s profile?\r"
                					+ "\nAll account and portfolio data will be permanently erased.\r"
                					+ "\n(y/n): ");
          if ((char) input.nextInt() == 'y') {

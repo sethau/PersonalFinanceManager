@@ -1,30 +1,30 @@
    package Forms;
-   import Domain.Transaction;
-   import java.io.*;
-   import java.util.Scanner;
-   import java.util.ArrayList;
+   import Domain.Account;
+import Domain.Transaction;
+import java.io.*;
+import java.util.Scanner;
+import java.util.ArrayList;
    
    public class TransactionForm {
       public static Transaction newTransaction(Account account) {
          Scanner input = new Scanner(System.in);
-         Transaction transaction = new Transaction(account);
+         Transaction transaction = new Transaction();
       	
       	//potentially add functionality that changes with account type
          System.out.print("\r\nAmount Paid: ");
-         transaction.setAmount(input.getNextDouble());
+         transaction.setAmount(input.nextDouble());
          System.out.print("\r\nVendor: ");
-         transaction.setVendor(input.getNextLine());
+         transaction.setVendor(input.nextLine());
          System.out.print("\r\nCategory: ");
-         transaction.setCategory(input.getNextLine());
+         transaction.setCategory(input.nextLine());
          return transaction;
       }
    
       public static String viewTransactions() {
-         boolean valid = false;
          char in;
          Scanner input = new Scanner(System.in);
       	
-         while (!valid) {
+         while (true) {
             System.out.print("\n1) Back\r"
                					+ "\n2) All Transactions\r"
                					+ "\n3) Select Transactions By Vendor\r"
@@ -35,20 +35,12 @@
             switch (in) {
                case '1':
                   return "Back";
-                  valid = true;
-                  break;
                case '2':
                   return "All";
-                  valid = true;
-                  break;
                case '3':
                   return "Vendor";
-                  valid = true;
-                  break;
                case '4':
                   return "Category";
-                  valid = true;
-                  break;
                default:
                   System.out.print("\r\n\t\t\t\t\tInvalid Input!");
             }
@@ -70,7 +62,6 @@
       public static String displayTransactions(ArrayList<Transaction> transactions) {
          int id = 1;
          char in;
-         boolean valid = false;
          Scanner input = new Scanner(System.in);
          
          for (Transaction transaction : transactions) {
@@ -82,7 +73,7 @@
             id++;
          }
       	
-         while (!valid) {
+         while (true) {
             System.out.print("\n1) Back\r"
                					+ "\n2) Delete Transaction\r"
                					+ "\n\r"
@@ -91,8 +82,6 @@
             switch (in) {
                case '1':
                   return "Back";
-                  valid = true;
-                  break;
                case '2':
                   while (id < 1 || id > transactions.size()) {
                      System.out.print("\r\nSelect Transaction To Be Deleted: ");
@@ -102,8 +91,6 @@
                      }
                   }
                   return ((Integer) id).toString();
-                  valid = true;
-                  break;
                default:
                   System.out.print("\r\n\t\t\t\t\tInvalid Input!");
             }

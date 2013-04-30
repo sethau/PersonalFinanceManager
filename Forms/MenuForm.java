@@ -1,18 +1,18 @@
    package Forms;
-   import Domain.Profile;
-   import java.io.*;
-   import java.lang.String;
-   import java.util.Scanner;
+   import Controllers.ProfileController;
+import Domain.Profile;
+import java.io.*;
+import java.lang.String;
+import java.util.Scanner;
    
    public class MenuForm {	
-      public static String displayMenu(Profile profile) {
+      public static String displayMenu(Profile profile) throws FileNotFoundException {
          char in;
-         boolean valid = false;
          Scanner input = new Scanner(System.in);
       	
-         System.out.print("\n\t\t\t\t\tWelcome, " + profile.getName() + "!\r"
-            					+ "\n\t\t\t\t- Net Worth: " + profile.getNetWorth() + "\r");
-         while (!valid) {
+         System.out.print("\n\t\t\t\t\tWelcome, " + profile.getUsername() + "!\r"
+            					+ "\n\t\t\t\t- Net Worth: " + ProfileController.getNetWorth(profile) + "\r");
+         while (true) {
             System.out.print("\n\r"
                					+ "\n1) View Accounts\r"
                					+ "\n2) View Portfolio\r"
@@ -24,20 +24,12 @@
             switch (in) {
                case '1':
                   return "View Accounts";
-                  valid = true;
-                  break;
                case '2':
                   return "View Portfolio";
-                  valid = true;
-                  break;
                case '3':
                   return "Delete Profile";
-                  valid = true;
-                  break;
                case '4':
                   return "Log Out";
-                  valid = true;
-                  break;
                default:
                   System.out.print("\r\n\t\t\t\t\tInvalid Input!");
             }

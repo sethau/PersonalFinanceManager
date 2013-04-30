@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import Domain.Account;
 import Domain.Profile;
 import Domain.RepositoryAdaptor;
+import Forms.AccountForm;
 
 public class AccountController {
 	
@@ -32,13 +33,14 @@ public class AccountController {
 		return RepositoryAdaptor.getAccounts(profile);
 	}
 	
-	public static int viewAccounts(Profile profile) {
-		return AccountForm.viewAccounts(getAll(profile));
+	public static int viewAccounts(Profile profile) throws FileNotFoundException {
+		return AccountForm.viewAccounts(profile, AccountController.getAll(profile));
 	}
 	
-	public static String createForm(String menuOption, Profile profile, int selection) {
-		ArrayList<Account> accounts = getAll(profile);
+	public static String createForm(String menuOption, Profile profile, int selection) throws IOException {
+		ArrayList<Account> accounts = AccountController.getAll(profile);
 		Account account;
+		String result;
 		int index;
 		if (menuOption.equals("Create Account")) {
 			account = AccountForm.newAccount(profile);
@@ -52,7 +54,6 @@ public class AccountController {
 		}
 		else if (menuOption.equals("Close Account")) {
 			index = AccountForm.closeAccount(accounts);
-			String result;
 			
 			if (index == 0) {
 				return "Back";
@@ -71,5 +72,6 @@ public class AccountController {
 			}
 			return result;
 		}
+		return "Back";
 	}
 }

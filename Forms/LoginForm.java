@@ -7,12 +7,11 @@
    public class LoginForm {
       public static String welcome() {
          Scanner input = new Scanner(System.in);
-         boolean valid = false;
          char in;
          Profile profile;
       	
          System.out.print("\t\t\t\t\tWelcome To The PFM!\r");
-         while (!valid) {
+         while (true) {
             System.out.print("\n\r"
                					+ "\n1) New User\r"
                					+ "\n2) Existing User\r"
@@ -22,17 +21,11 @@
             switch (in) {
                case '1':
                   return "New User";
-                  valid = true;
-                  break;
                case '2':
                   return "Existing User";
-                  valid = true;
-                  break;
                default:
                   System.out.print("\r\n\t\t\t\t\tInvalid Input!");
             }
          }
-      	
-         return null;
       }
    }

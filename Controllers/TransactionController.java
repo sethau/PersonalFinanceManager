@@ -8,6 +8,7 @@ import Domain.Account;
 import Domain.Profile;
 import Domain.RepositoryAdaptor;
 import Domain.Transaction;
+import Forms.TransactionForm;
 
 public class TransactionController extends Controller {
 	
@@ -29,26 +30,37 @@ public class TransactionController extends Controller {
 		return RepositoryAdaptor.getTransactions(account);
 	}
 	
-	public static String createForm(String menuOption, Profile profile, Account account) {
-		if (menuOption.equals("View Transactions") {
-			String result = TransactionForm.viewTransactions(profile, account);
-			if (result.equals("Back")) {
-			
-			}
-			else if (result.equals("All")) {
-			
-			}
-			else if (result.equals("Date")) {
-			
+	public static String createForm(String menuOption, Profile profile, Account account) throws IOException {
+		if (menuOption.equals("View Transactions")) {
+			String result = TransactionForm.viewTransactions();
+			if (result.equals("All")) {
+				ArrayList<Transaction> transactions = getAll(account);
+				TransactionForm.displayTransactions(transactions);
 			}
 			else if (result.equals("Vendor")) {
-			
+				String vendor = TransactionForm.getVendor();
+				ArrayList<Transaction> transactions = getAll(account);
+				ArrayList<Transaction> transForVendor = new ArrayList<Transaction>();
+				for (Transaction transaction : transactions) {
+					if (transaction.getVendor().equals(vendor)) {
+						transForVendor.add(transaction);
+					}
+				}
+				TransactionForm.displayTransactions(transForVendor);
 			}
 			else if (result.equals("Category")) {
-			
+				String category = TransactionForm.getCategory();
+				ArrayList<Transaction> transactions = getAll(account);
+				ArrayList<Transaction> transForCategory = new ArrayList<Transaction>();
+				for (Transaction transaction : transactions) {
+					if (transaction.getCategory().equals(category)) {
+						transForCategory.add(transaction);
+					}
+				}
+				TransactionForm.displayTransactions(transForCategory);
 			}
 		}
-		else if (result.equals("New Transaction")) {
+		else if (menuOption.equals("New Transaction")) {
 			save(profile, account, TransactionForm.newTransaction(account));
 		}
 		return "Back";		

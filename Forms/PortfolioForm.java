@@ -1,22 +1,22 @@
    package Forms;
    import Controllers.PortfolioController;
-   import Domain.Profile;
-   import Domain.Portfolio;
-   import Domain.Stock;
-   import java.io.*;
-   import java.util.Scanner;
-   import java.util.ArrayList;
+import Controllers.RealTimeStockQuote;
+import Domain.Profile;
+import Domain.Portfolio;
+import Domain.Stock;
+import java.io.*;
+import java.util.Scanner;
+import java.util.ArrayList;
    
    public class PortfolioForm {
-      public static String viewPortfolio(Profile profile) {
-         Portfolio portfolio = PortfolioController.get(profile.getName());
+      public static String viewPortfolio(Profile profile) throws FileNotFoundException {
+         Portfolio portfolio = PortfolioController.get(profile);
          char in;
-         boolean valid = false;
          Scanner input = new Scanner(System.in);
       	
-         System.out.print("\n" + profile.getName() + "\'s Portfolio\r"
+         System.out.print("\n" + profile.getUsername() + "\'s Portfolio\r"
             					+ "\n- Stock Holdings: "/* + PortfolioController.getStockValue(profile)*/);
-         while (!valid) {
+         while (true) {
             System.out.print("\r\n\r"
                					+ "\n1) Back\r"
                					+ "\n2) View Holdings\r"
@@ -29,24 +29,14 @@
             switch (in) {
                case '1':
                   return "Back";
-                  valid = true;
-                  break;
                case '2':
                   return "View Holdings";
-                  valid = true;
-                  break;
                case '3':
                   return "View Trade History";
-                  valid = true;
-                  break;
                case '4':
                   return "Buy";
-                  valid = true;
-                  break;
                case '5':
                   return "Sell";
-                  valid = true;
-                  break;
                default:
                   System.out.print("\r\n\t\t\t\t\tInvalid Input!");
             }
@@ -56,8 +46,10 @@
       public static void viewHoldings(ArrayList<Stock> stocks) {
          for (Stock stock : stocks) {
             System.out.print("\r\n " + stock.getCompany() + "\r"
-               					+ "\nShares: " + stock.getNumShares() + " at " + stock.getPrice() + "\r"
-               					+ "\nTotal: $" + stock.getNumShares() * stock.getPrice() + "\r\n");
+               					+ "\nShares: " + stock.getNumShares() + " at "
+               					+ RealTimeStockQuote.price(stock.getCompany()) + "\r"
+               					+ "\nTotal: $" + stock.getNumShares()
+               					* RealTimeStockQuote.price(stock.getCompany()) + "\r\n");
          }
       }
    }
