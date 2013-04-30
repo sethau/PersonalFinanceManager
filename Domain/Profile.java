@@ -1,5 +1,10 @@
 package Domain;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import Controllers.AccountController;
+import Controllers.PortfolioController;
 
 public class Profile {
 	
@@ -7,7 +12,7 @@ public class Profile {
 	ArrayList<Account> accounts;
 	Portfolio portfolio;
 	
-	public Profile(String username, String password) {
+	public Profile(String username, String password) throws FileNotFoundException {
 		this.username = username;
 		this.password = password;
 		updateAccounts();
@@ -30,33 +35,30 @@ public class Profile {
 		return portfolio;
 	}
 	
-	public boolean updateAccounts() {
-		
-		
-		return true;
-	}
-	
-	public boolean updatePortfolio() {
-		
+	public boolean updateAccounts() throws FileNotFoundException {
+		accounts = AccountController.getAll(this);
 		
 		return true;
 	}
 	
-	public boolean addAccount(Account account) {
-		
-		
-		return true;
-	}
-	
-	public boolean deleteAccount(String name) {
-		
+	public boolean updatePortfolio() throws FileNotFoundException {
+		portfolio = PortfolioController.get(this);
 		
 		return true;
 	}
 	
-	public double getNetWorth() {
+	public boolean addAccount(Account account) throws IOException {
+		accounts.add(account);
+		AccountController.saveEntire(this, account);
 		
+		return true;
+	}
+	
+	public boolean deleteAccount(String name) throws IOException {
+		Account account = AccountController.get(this, name);
+		accounts.remove(account);
+		AccountController.remove(this, account);
 		
-		return -1;
+		return true;
 	}
 }
